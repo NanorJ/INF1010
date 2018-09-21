@@ -25,7 +25,7 @@ public:
 	void setReceveur(Utilisateur* receveur);
 
 	//Méthode d'affichage
-	void afficherTransfert();
+	void afficherTransfert() const;
 
 private:
 	double montant_;

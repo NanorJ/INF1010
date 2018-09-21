@@ -51,11 +51,12 @@ void Transfert::setReceveur(Utilisateur* receveur)
 	receveur_ = receveur;
 }
 
-void Transfert::afficherTransfert()
+void Transfert::afficherTransfert() const
 {
 	cout << "Le montant est: " << montant_ << endl;
 	cout << "Le donneur est: ";
 	donneur_->getNom();
 	cout << endl << "Le receveur est: ";
-	receveur_->getNom();
+	receveur_->getNom(); //esque ca va afficher le même nom?
 }
+

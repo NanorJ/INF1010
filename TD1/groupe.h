@@ -33,7 +33,7 @@ public:
 	void equilibrerComptes();
 
 	//methode d'affichage
-	void afficherGroupe();
+	void afficherGroupe() const;
 
 private:
 	string nom_;
