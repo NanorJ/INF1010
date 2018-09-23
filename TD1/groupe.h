@@ -2,16 +2,17 @@
 #ifndef GROUPE_H
 #define GROUPE_H
 
+#include <string>
+
+using namespace std;
 
 #include "transfert.h"
-#include <string>
-using namespace std;
 
 class Groupe {
 public:
 	//Constructeurs
 	Groupe();
-	Groupe(string& nom, unsigned int tailleTabDepenses, unsigned int tailleTabUtilisateurs);
+	Groupe(const string& nom, unsigned int tailleTabDepenses, unsigned int tailleTabUtilisateurs);
 
 	//Destructeur
 	~Groupe();
@@ -22,7 +23,7 @@ public:
 	double getTotal() const;
 
 	//Methodes de modification
-	void setNom(string& nom);
+	void setNom(const string& nom);
 
 	//Methodes d'ajout
 	void ajouterDepense(Depense* uneDepense, Utilisateur* payePar);

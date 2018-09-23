@@ -1,9 +1,13 @@
+
 #ifndef TRANSFERT_H
 #define TRANSFERT_H
-#include "utilisateur.h"
-#include <iostream>
 
+#include <iostream>
 #include <stdio.h>
+
+using namespace std;
+
+#include "utilisateur.h"
 
 class Transfert {
 public:
@@ -11,7 +15,6 @@ public:
 	// Constructeurs
 	Transfert();
 	Transfert(double montant, Utilisateur* de, Utilisateur* pour);
-
 	// Méthodes d'accès
 
 	Utilisateur* getDonneur() const;
@@ -19,12 +22,11 @@ public:
 	double getMontant() const;
 
 
-	//Méthode de modification
+	//Méthode d'affichage
 	void setDonneur(Utilisateur* donneur);
 	void setMontant(double montant);
 	void setReceveur(Utilisateur* receveur);
 
-	//Méthode d'affichage
 	void afficherTransfert() const;
 
 private:
