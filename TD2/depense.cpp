@@ -1,8 +1,11 @@
-/********************************************
+/********************************************************************************
 * Titre: Travail pratique #2 - depense.cpp
 * Date: 16 septembre 2018
 * Auteur: Wassim Khene
-*******************************************/
+* Modifié par : Nanor Janjikian (1901777) et Stéphanie Mansour (1935595)
+* Date: 2 octobre 2018
+* Description: Ce code contient les méthodes implémentées de depense.h
+*********************************************************************************/
 
 #include "depense.h"
 
@@ -10,10 +13,8 @@
 Depense::Depense() : nom_(""), montant_(0) {
 }
 
-/*Depense::Depense(const string& nom, double montant) : nom_(nom), montant_(montant) {
-}*/
-
-Depense::Depense(const string& nom, double montant, string* lieu) : nom_(nom), montant_(montant), lieu_(lieu) {
+Depense::Depense(const string& nom, double montant, const string& lieu) : nom_(nom), montant_(montant), lieu_(nullptr) {
+	lieu_ = new string(lieu);
 }
 
 Depense::Depense(const Depense& depense) :
@@ -53,8 +54,8 @@ void Depense::setMontant(double montant) {
 	montant_ = montant;
 }
 
-void Depense::setLieu(string* lieu) {
-	lieu_ = lieu;
+void Depense::setLieu(const string& lieu) {
+	lieu_ = new string(lieu);
 }
 
 // Methode d'affichage

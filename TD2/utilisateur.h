@@ -47,7 +47,7 @@ private:
 	string nom_;
 	// TODO: Remplacer depenses_ par un vecteur
 	//unsigned int tailleTabDepense_;
-	unsigned int nombreDepenses_;
+	//unsigned int nombreDepenses_;
 	vector <Depense*> depenses_;
 
 };

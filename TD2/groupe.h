@@ -16,7 +16,7 @@ class Groupe {
 public:
 	// Constructeurs
 	Groupe();
-	Groupe(const string& nom, unsigned int tailleTabDepenses, unsigned int tailleTabUtilisateurs);
+	Groupe(const string& nom);
 
 	// Destructeur
 	~Groupe();
@@ -31,9 +31,9 @@ public:
 
 	// Methodes d'ajout
 	// TODO: Modifier pour utiliser la surcharge d'operateur
-	void ajouterDepense(Depense* depense, Utilisateur* utilisateur);
+	Groupe ajouterDepense(Depense* depense, Utilisateur* utilisateur);
 	
-	void ajouterUtilisateur(Utilisateur* utilisateur);
+	//void ajouterUtilisateur(Utilisateur* utilisateur);
 	Groupe& operator+=(Utilisateur* unUtilisateur);
 
 	// Methodes de calcul
@@ -48,13 +48,13 @@ private:
 	string nom_;
 	// Remplacer les doubles pointeurs par des vecteurs
 	vector<Utilisateur*> utilisateurs_;
-	unsigned int nombreUtilisateurs_;
+	//unsigned int nombreUtilisateurs_;
 	//unsigned int tailleTabUtilisateurs_;
 	vector<Depense*> depenses_;
-	unsigned int nombreDepenses_;
+	//unsigned int nombreDepenses_;
 	//unsigned int tailleTabDepenses_;
 	vector<Transfert*> transferts_;
-	unsigned int nombreTransferts_;
+	//unsigned int nombreTransferts_;
 	vector<double> comptes_;
 
 };

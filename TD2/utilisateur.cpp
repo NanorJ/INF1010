@@ -1,21 +1,24 @@
-/********************************************
+/********************************************************************************
 * Titre: Travail pratique #2 - utilisateur.cpp
 * Date: 16 septembre 2018
 * Auteur: Wassim Khene
-*******************************************/
+* Modifié par : Nanor Janjikian (1901777) et Stéphanie Mansour (1935595)
+* Date: 2 octobre 2018
+* Description: Ce code contient les méthodes implémentées de utilisateur.h
+*********************************************************************************/
 
 #include "utilisateur.h"
 
 // Constructeurs
-Utilisateur::Utilisateur() : nom_(""), nombreDepenses_(0) {
+Utilisateur::Utilisateur() : nom_("") {
 }
 
 Utilisateur::Utilisateur(const string& nom)
-	: nom_(nom), nombreDepenses_(0) {
+	: nom_(nom) {
 }
 
 Utilisateur::Utilisateur(const Utilisateur& utilisateur):
-	nom_(utilisateur.nom_), nombreDepenses_(utilisateur.nombreDepenses_) {
+	nom_(utilisateur.nom_) {
 }
 
 
@@ -29,13 +32,10 @@ string Utilisateur::getNom() const {
 	return nom_;
 }
 
-unsigned int Utilisateur::getNombreDepense() const {
-	return nombreDepenses_;
-}
 
 double Utilisateur::getTotalDepenses() const {
 	double total = 0;
-	for (int i = 0; i < nombreDepenses_; i++) {
+	for (int i = 0; i < depenses_.size(); i++) {
 		total += depenses_[i]->getMontant();
 	}
 	return total;
@@ -51,27 +51,11 @@ Utilisateur& Utilisateur::operator+=(Depense* uneDepense) {
 	return *this;
 }
 
-/*void Utilisateur::ajouterDepense(Depense* depense) {
-	if (nombreDepenses_ == tailleTabDepense_) {
-		tailleTabDepense_ *= 2;
-
-		Depense** listeTemp = new Depense*[tailleTabDepense_];
-		for (unsigned int i = 0; i < nombreDepenses_; i++) {
-			listeTemp[i] = depenses_[i];
-		}
-		delete[] depenses_;
-
-		depenses_ = listeTemp;
-	}
-	depenses_[nombreDepenses_++] = depense;
-}*/
-
 Utilisateur& Utilisateur::operator=(const Utilisateur& utilisateur) {
 	if (this != &utilisateur)
 	{
 		depenses_ = utilisateur.depenses_;
 		nom_ = utilisateur.nom_;
-		nombreDepenses_ = utilisateur.nombreDepenses_;
 	}
 	return *this;
 }
@@ -84,20 +68,10 @@ ostream& operator<<(ostream &os, const Utilisateur& utilisateur) {
 		<< utilisateur.getTotalDepenses() << endl
 		<< "\t Liste de depenses : " << endl; 
 
-	for (int i = 0; i < utilisateur.nombreDepenses_; i++) {
-		os << "\t\t" << utilisateur.depenses_[i]->;
+	for (int i = 0; i < utilisateur.depenses_.size(); i++) {
+		os << "\t\t" << utilisateur.depenses_[i];
 	
 	}
 	return os;
 }
 
-/*void Utilisateur::afficherUtilisateur() const {
-
-	cout << "Utilisateur : " << nom_ << " a depense pour un total de : " << getTotalDepenses() << endl;
-	cout << "\t Liste de depenses : " << endl;
-	for (int i = 0; i < nombreDepenses_; i++) {
-		cout << "\t\t";
-		depenses_[i]->afficherDepense();
-	}
-
-}*/

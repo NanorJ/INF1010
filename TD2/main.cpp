@@ -1,8 +1,29 @@
-/********************************************
+/************************************************************************
 * Titre: Travail pratique #2 - main.cpp
 * Date: 16 septembre 2018
 * Auteur: Wassim Khene
-*******************************************/
+* Modifié par : Nanor Janjikian (1901777) et Stéphanie Mansour (1935595)
+* Date: 2 octobre 2018
+* Description: Ce code permet de créé des utilisateurs et des dépenses
+* pour les ajouter aux utilisateurs et groupes et ensuite afficher
+* les dépenses faites par chaque membre pour la totalité du groupe, 
+* à  l'aide des fichiers d’implémentation de classe.
+*************************************************************************/
+
+/* Questions:
+*	1. L’opérateur = est une affectation qui est utile lorsqu’on veut
+*       modifier les attributs d’un objet en le passant les valeurs des
+*	attributs d’un autre objet déjà existant.
+*          Le constructeur par copie est utile lorsqu’on veut créer un second
+*       objet identique a un objet déjà créer pour pouvoir le modifier,
+*       tout en gardant une copie de ce dernier.
+*
+*	2. En utilisant l’opérateur =, on affecte les attributs d’un objet
+*       déjà existant à un autre objet existant. En d’autre mots, cet opérateur
+*       est utilisé sur deux objets déjà créés. Par contre, en utilisant le
+*       constructeur par copie, on utilise un objet qui existe pour pouvoir créer
+*	un nouvel objet identique à ce dernier.
+*/
 
 #include <string>
 #include <iostream>
@@ -60,5 +81,21 @@ int main() {
 
 	// TODO: Terminez le programme correctement
 
+	delete u1;
+	delete u2;
+	delete u3;
+	delete u4;
+	delete u5;
+
+
+	delete  d1;
+	delete  d2;
+	delete  d3;
+	delete  d4;
+	delete  d5;
+	delete  d6;
+	delete  d7;
+
+	system("pause");
 	return 0;
 }

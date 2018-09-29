@@ -2,6 +2,7 @@
 * Titre: Travail pratique #2 - depense.h
 * Date: 16 septembre 2018
 * Auteur: Wassim Khene
+
 *******************************************/
 
 #ifndef DEPENSE_H
@@ -18,7 +19,7 @@ public:
 	// TODO: Ajouter le attribut objet dans les constructeurs
 	Depense();
 	//Depense(const string& nom, double montant);
-	Depense(const string& nom, double montant, string* lieu);
+	Depense(const string& nom, double montant, const string& lieu);
 	
 	// TODO: Ajouter un constructeur par copie
 	Depense(const Depense& depense);
@@ -30,7 +31,7 @@ public:
 	// Methodes de modifications
 	void setNom(const string& nom);
 	void setMontant(double montant);
-	void setLieu( string* lieu);
+	void setLieu(const string& lieu);
 	// TODO: Ajouter une surcharge de l'operateur =
 	Depense& operator=(const Depense& depense);
 	// TODO: Remplacer par une surcharge de l'operateur <<

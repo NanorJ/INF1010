@@ -2,7 +2,10 @@
 * Titre: Travail pratique #2 - transfert.cpp
 * Date: 16 septembre 2018
 * Auteur: Wassim Khene
-*******************************************/
+* Modifié par : Nanor Janjikian (1901777) et Stéphanie Mansour (1935595)
+* Date: 2 octobre 2018
+* Description: Ce code contient les méthodes implémentées de transfert.h
+*********************************************************************************/
 
 #include "transfert.h"
 

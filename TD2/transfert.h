@@ -29,7 +29,7 @@ public:
 	void setReceveur(Utilisateur* receveur);
 
 	// TODO: Remplacer par une surcharge de l'operateur <<
-	void afficherTransfert() const;
+	//void afficherTransfert() const;
 	friend ostream& operator<<(ostream& os, const Transfert& transfert);
 
 
