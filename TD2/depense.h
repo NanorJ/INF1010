@@ -1,9 +1,9 @@
-/********************************************
+/***************************************************************************
 * Titre: Travail pratique #2 - depense.h
-* Date: 16 septembre 2018
 * Auteur: Wassim Khene
-
-*******************************************/
+* Modifié par : Nanor Janjikian (1901777) et Stéphanie Mansour (1935595)
+* Date : 2 octobre 2018
+***************************************************************************/
 
 #ifndef DEPENSE_H
 #define DEPENSE_H
@@ -15,32 +15,32 @@ using namespace std;
 
 class Depense {
 public:
-	// Constructeurs
-	// TODO: Ajouter le attribut objet dans les constructeurs
+	// Constructeurs par défault
 	Depense();
-	//Depense(const string& nom, double montant);
+	//Ajout du paramètre lieu dans le constructeur par paramètres
 	Depense(const string& nom, double montant, const string& lieu);
-	
-	// TODO: Ajouter un constructeur par copie
+	//Ajout du constructeur par copie
 	Depense(const Depense& depense);
 	
-	// Methodes d'acces
+	// Methodes d'acces et ajout de la méthode getLieu
 	string getNom() const;
 	double getMontant() const;
+	string* getLieu() const;
 
-	// Methodes de modifications
+	// Methodes de modifications et ajout de la méthode setLieu
 	void setNom(const string& nom);
 	void setMontant(double montant);
 	void setLieu(const string& lieu);
-	// TODO: Ajouter une surcharge de l'operateur =
+
+	//Ajout de la surcharge de l'operateur =
 	Depense& operator=(const Depense& depense);
-	// TODO: Remplacer par une surcharge de l'operateur <<
+	//Méthode d'affichage remplacée par une surcharge de l'operateur <<
 	friend ostream& operator<<(ostream& os, const Depense& depense);
 
 private:
 	string nom_;
 	double montant_;
-	// TODO: Ajouter l'attribut lieu
+	//Ajoute l'attribut lieu pointeur
 	string* lieu_;
 };
 #endif

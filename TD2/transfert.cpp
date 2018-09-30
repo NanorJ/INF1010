@@ -1,6 +1,5 @@
-/********************************************
+/******************************************************************************
 * Titre: Travail pratique #2 - transfert.cpp
-* Date: 16 septembre 2018
 * Auteur: Wassim Khene
 * Modifié par : Nanor Janjikian (1901777) et Stéphanie Mansour (1935595)
 * Date: 2 octobre 2018
@@ -9,7 +8,7 @@
 
 #include "transfert.h"
 
-// Constructeurs
+//implementation des constructeurs par default et par parametred
 Transfert::Transfert() : montant_(0), expediteur_(nullptr), receveur_(nullptr) {
 }
 
@@ -17,7 +16,7 @@ Transfert::Transfert(double montant, Utilisateur* expediteur, Utilisateur* recev
 	montant_(montant), expediteur_(expediteur), receveur_(receveur) {
 }
 
-// Methodes d'acces
+//implementation des methodes d'acces
 double Transfert::getMontant() const {
 	return montant_;
 }
@@ -30,7 +29,7 @@ Utilisateur* Transfert::getReceveur() const {
 	return receveur_;
 }
 
-// Methodes de modifications
+//implementation des methodes de modifications
 void Transfert::setMontant(double montant) {
 	montant_ = montant;
 }
@@ -42,7 +41,7 @@ void Transfert::setExpediteur(Utilisateur *donneur) {
 void Transfert::setReceveur(Utilisateur *receveur) {
 	receveur_ = receveur;
 }
-
+//implementation de la methode d'affichage
 ostream& operator<<(ostream& os, const Transfert& transfert) {
 	os << "Transfert fait par " << transfert.expediteur_->getNom()
 		<< " vers " << transfert.receveur_->getNom()

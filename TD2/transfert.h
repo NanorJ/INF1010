@@ -1,9 +1,9 @@
-/********************************************
+/***************************************************************************
 * Titre: Travail pratique #2 - transfert.h
-* Date: 16 septembre 2018
 * Auteur: Wassim Khene
-*******************************************/
-
+* Modifié par : Nanor Janjikian (1901777) et Stéphanie Mansour (1935595)
+* Date : 2 octobre 2018
+***************************************************************************/
 #ifndef TRANSFERT_H
 #define TRANSFERT_H
 #include "utilisateur.h"
@@ -13,8 +13,9 @@
 class Transfert {
 public:
 
-	// Constructeurs
+	// Constructeur par default
 	Transfert();
+	// constructeur par parametre
 	Transfert(double montant, Utilisateur* expediteur, Utilisateur* receveur_);
 
 	// Méthodes d'accès
@@ -28,16 +29,13 @@ public:
 	void setExpediteur(Utilisateur* expediteur);
 	void setReceveur(Utilisateur* receveur);
 
-	// TODO: Remplacer par une surcharge de l'operateur <<
-	//void afficherTransfert() const;
+	//Remplacer affichage par une surcharge de l'operateur <<
 	friend ostream& operator<<(ostream& os, const Transfert& transfert);
-
 
 private:
 	double montant_;
 	Utilisateur* expediteur_;
 	Utilisateur* receveur_;
-
 
 };
 
