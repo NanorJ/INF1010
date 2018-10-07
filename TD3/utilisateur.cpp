@@ -7,8 +7,21 @@
 #include "utilisateur.h"
 
 // Constructeurs
+Utilisateur::Utilisateur(const string& nom, double interet, TypeUtilisateur type, double totalDepense) {
+	//vecteur depense nullptr?
+}
 
+Utilisateur::Utilisateur(const Utilisateur& utilisateur) :
+	nom_(utilisateur.nom_), interet_(utilisateur.interet_), type_(utilisateur.type_), totalDepense_(utilisateur.totalDepense_)
+{
+	//vect depense
+}
 
+Utilisateur::~Utilisateur()
+{
+	/*if (lieu_ != nullptr)
+		delete lieu_;*/
+}
 
 // Methodes d'acces
 
