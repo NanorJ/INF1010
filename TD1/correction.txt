@@ -1,0 +1,9 @@
+Grade : 19/20 
+
+Feedback : (french)
+
+-groupe.cpp : 
+
+  -Constructeur par defaut : il faut allouer les tableaux tout de même 
+
+  -Destructeur : il faut détruire les transferts ...
