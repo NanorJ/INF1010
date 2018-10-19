@@ -12,7 +12,7 @@ class UtilisateurRegulier : public Utilisateur {
 public : 
 
 	//constructeurs 
-	UtilisateurRegulier(const string& nom = ""); 
+	UtilisateurRegulier(const string& nom = "", double interet = TAUX_REGULIER, TypeUtilisateur type = Regulier, bool estGroupe = false, double totalDepense = 0.0);
 	UtilisateurRegulier(const Utilisateur& utilisateur); 
 
 
@@ -26,9 +26,9 @@ public :
 	//surcharge
 	UtilisateurRegulier& operator=(Utilisateur* utilisateur);
 	friend ostream& operator<< (ostream& os, const UtilisateurRegulier& utilisateur); 
-private :
-	bool estGroupe_; 
 	
+	private :
+	bool estGroupe_; 	
 };
 
 #endif // !UTILISATEUR_REGULIER_H

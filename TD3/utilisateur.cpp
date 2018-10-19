@@ -7,24 +7,22 @@
 #include "utilisateur.h"
 
 // Constructeurs
-Utilisateur::Utilisateur(const string& nom, double interet, TypeUtilisateur type, double totalDepense) {
-	//vecteur depense nullptr?
+
+Utilisateur::Utilisateur(const string& nom, TypeUtilisateur type, double interet, double totalDepense) {
+	nom_ = nom;
+	type_ = type;
+	interet_ = interet;
+	totalDepense_ = totalDepense;
+}
+Utilisateur::Utilisateur(const Utilisateur& utilisateur): 
+	type_(utilisateur.type_), nom_(utilisateur.nom_), interet_(utilisateur.interet_), 
+	totalDepense_(utilisateur.totalDepense_) {
 }
 
-Utilisateur::Utilisateur(const Utilisateur& utilisateur) :
-	nom_(utilisateur.nom_), interet_(utilisateur.interet_), type_(utilisateur.type_), totalDepense_(utilisateur.totalDepense_)
-{
-	//vect depense
-}
-
-Utilisateur::~Utilisateur()
-{
-	/*if (lieu_ != nullptr)
-		delete lieu_;*/
+Utilisateur::~Utilisateur() {
 }
 
 // Methodes d'acces
-
 string Utilisateur::getNom() const {
 	return nom_;
 }
@@ -42,7 +40,6 @@ double Utilisateur::getInteret() const {
 }
 
 unsigned int Utilisateur::getNombreDepenses() const {
-	
 	return depenses_.size();
 }
 
@@ -56,12 +53,20 @@ void Utilisateur::setNom(const string& nom) {
 }
 
 void Utilisateur::calculerTotalDepenses() {
-	
+	for (int i = 0; i < depenses_.size(); i++) 
+		totalDepense_ += depenses_[i]->getMontant();
 }
 
-Utilisateur& Utilisateur::operator=(Utilisateur * utilisateur)
-{
-	
+Utilisateur& Utilisateur::operator=(Utilisateur * utilisateur){
+	if (this != utilisateur)
+	{
+		type_ = utilisateur->type_;
+		nom_ = utilisateur->nom_;
+		interet_ = utilisateur->interet_;
+		totalDepense_ = utilisateur->totalDepense_;
+		depenses_ = utilisateur->depenses_;
+	}
+	return *this;
 }
 
 
@@ -70,12 +75,20 @@ void Utilisateur::ajouterInteret(double montant) {
 }
 
 Utilisateur& Utilisateur::operator+=(Depense* depense) {
-	
+	depenses_.push_back(depense);
+	return *this;
 }
 
 // Methode d'affichage
-ostream& operator<<(ostream& os, const Utilisateur& utilisateur)
+ostream& operator<<(ostream& os, const Utilisateur& utilisateur){
+	os << "Utilisateur : " << utilisateur.getNom()
+		<< " a depense pour un total de : " 
+		<< " avec un interet de " << utilisateur.getInteret()
+		<< utilisateur.getTotalDepenses() << endl
+		<< "\t\t Liste de depenses : " << endl;
 
-{
-
+	for (int i = 0; i < utilisateur.depenses_.size(); i++) {
+		os << "\t\t\t" << *(utilisateur.depenses_[i]);
+	}
+	return os;
 }

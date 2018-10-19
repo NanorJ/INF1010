@@ -6,15 +6,17 @@
 
 #include "depense.h"
 
-// Implémentation du constucteur 
-Depense::Depense(const string& nom, double montant, const string& lieu, TypeDepense type) : nom_(nom), montant_(montant),lieu_(nullptr), type_(type){
+// Constucteurs
+
+Depense::Depense(const string& nom, double montant, const string& lieu, TypeDepense type) {
+	nom_ = nom;
 	lieu_ = new string(lieu);
+	montant_ = montant;
+	type_ = type;
 }
 
-//Implémentation du constructeur par copie
 Depense::Depense(const Depense& depense) :
-	lieu_(nullptr), nom_(depense.nom_), montant_(depense.montant_),type_(depense.type_)
-{
+	nom_(depense.nom_), montant_(depense.montant_), lieu_(nullptr), type_(depense.type_) {
 	lieu_ = new string(*(depense.lieu_));
 }
 
@@ -58,13 +60,12 @@ void Depense::setLieu(const string& nom)
 	lieu_ = new string(nom);
 }
 
-//permet de changer le type de depense
+
 void Depense::setType(TypeDepense type) {
 	type_ = type; 
 }
 
-Depense& Depense::operator=(const Depense & depense)
-{
+Depense& Depense::operator=(const Depense& depense) {
 	if (this != &depense)
 	{
 		delete lieu_;
@@ -77,10 +78,10 @@ Depense& Depense::operator=(const Depense & depense)
 	return *this;
 }
 
-//implémentation de la methode d'affichage
 ostream& operator<<(ostream &os, const Depense& depense) {
 	os << "Achat : " << depense.getNom()
 		<< " Prix : " << depense.getMontant()
+		<< " Lieu d'achat : " << depense.getLieu()
 		<< endl;
 
 	return os;

@@ -17,7 +17,7 @@ using namespace std;
 class DepenseGroupe : public Depense {
 public:
 	//constructeur
-	DepenseGroupe( const string& nom = "", double montant = 0, const string& lieu = "Montreal", unsigned int nombreParticipants=0, TypeDepense type = groupe);
+	DepenseGroupe(const string& nom = "", double montant = 0, const string& lieu = "Montreal", TypeDepense type = groupe, unsigned int nombreParticipants = 0);
 	DepenseGroupe(const DepenseGroupe& depense); 
 
 	//getters 
