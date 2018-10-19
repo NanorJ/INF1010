@@ -12,12 +12,11 @@ Depense::Depense(const string& nom, double montant, const string& lieu, TypeDepe
 	nom_ = nom;
 	lieu_ = new string(lieu);
 	montant_ = montant;
-	type_ = type;
+	type_ = type; 
 }
 
 Depense::Depense(const Depense& depense) :
-	nom_(depense.nom_), montant_(depense.montant_), lieu_(nullptr), type_(depense.type_) {
-	lieu_ = new string(*(depense.lieu_));
+	nom_(depense.nom_), montant_(depense.montant_), lieu_(new string(*(depense.lieu_))), type_(depense.type_) {
 }
 
 Depense::~Depense()
@@ -54,8 +53,7 @@ void Depense::setMontant(double montant) {
 	montant_ = montant;
 }
 
-void Depense::setLieu(const string& nom)
-{
+void Depense::setLieu(const string& nom) {
 	delete lieu_;
 	lieu_ = new string(nom);
 }
@@ -69,7 +67,6 @@ Depense& Depense::operator=(const Depense& depense) {
 	if (this != &depense)
 	{
 		delete lieu_;
-
 		lieu_ = new string(*(depense.lieu_));
 		nom_ = depense.nom_;
 		montant_ = depense.montant_;
@@ -80,9 +77,8 @@ Depense& Depense::operator=(const Depense& depense) {
 
 ostream& operator<<(ostream &os, const Depense& depense) {
 	os << "Achat : " << depense.getNom()
-		<< " Prix : " << depense.getMontant()
-		<< " Lieu d'achat : " << depense.getLieu()
-		<< endl;
+		<< " Lieu : " << depense.getLieu()
+		<< " Prix : " << depense.getMontant();
 
 	return os;
 }

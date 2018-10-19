@@ -5,7 +5,7 @@ UtilisateurPremium::UtilisateurPremium(const string& nom, double interet, TypeUt
 	taux_ = taux;
 }
 
-UtilisateurPremium::UtilisateurPremium(const Utilisateur& utilisateur): Utilisateur::Utilisateur(utilisateur) {
+UtilisateurPremium::UtilisateurPremium(const Utilisateur& utilisateur): Utilisateur(utilisateur) {
 	taux_ = TAUX_REGULIER;
 	joursRestants_ = 30;
 }
@@ -23,20 +23,22 @@ void UtilisateurPremium::setJoursRestants(unsigned int joursRestants) {
 }
 
 void UtilisateurPremium::calculerTaux() {
-	unsigned int count = Utilisateur::getNombreDepenses();
-	if (count == 2)
-		taux_ -= 0.01;
+	if (getNombreDepenses() < 10)
+		taux_ = 0.05 - (0.01 * (getNombreDepenses() / 2));
+	else taux_ = 0.0;
 }
 
-UtilisateurPremium& UtilisateurPremium::operator= (Utilisateur* utilisateur) {
+UtilisateurPremium& UtilisateurPremium::operator= (Utilisateur* utilisateur) { //might cause an error
 	if (this != utilisateur)
 		static_cast<Utilisateur> (*utilisateur) = *this; //deep copy
 	return *this;
 }
 
 ostream& operator << (ostream& os, const UtilisateurPremium& utilisateur) {
-	os << "Le taux est de : " << utilisateur.getTaux()
-		<< "le nombre de jours restants est de : " << utilisateur.getJoursRestants()
+	os << "Utilisateur : " << utilisateur.getNom() << "(Premium)"
+		<< static_cast<Utilisateur>(utilisateur)
+		<< "Le taux final est de : " << utilisateur.getTaux()
+		<< "Il reste " << utilisateur.getJoursRestants() << " jours a son abonnement. \n"
 		<< endl;
 	return os;
 }

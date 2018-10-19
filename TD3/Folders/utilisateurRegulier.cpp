@@ -4,7 +4,7 @@
 UtilisateurRegulier::UtilisateurRegulier(const string& nom, double interet, TypeUtilisateur type, bool estGroupe, double totalDepense): Utilisateur(nom, type, interet, totalDepense) {
 	estGroupe_ = estGroupe;
 }
-UtilisateurRegulier::UtilisateurRegulier(const Utilisateur& utilisateur) : Utilisateur::Utilisateur(utilisateur) {
+UtilisateurRegulier::UtilisateurRegulier(const Utilisateur& utilisateur) : Utilisateur(utilisateur) {
 	 estGroupe_ = false;
 }
 
@@ -26,8 +26,13 @@ UtilisateurRegulier& UtilisateurRegulier::operator=(Utilisateur* utilisateur) {
 }
 
 ostream& operator<< (ostream& os, const UtilisateurRegulier& utilisateur){
-	os << "l'utilisateur est groupe :" << utilisateur.estGroupe()
-		<< endl;
+	os << "Utilisateur : " << utilisateur.getNom() << "(Regulier)";
+
+	if (utilisateur.estGroupe_ == true)
+		os << " est dans le groupe et ";
+	else
+		os << " n'est pas dans un groupe et ";
+	os << static_cast<Utilisateur>(utilisateur) << endl;
 	return os;
 }
 

@@ -16,7 +16,7 @@ Utilisateur::Utilisateur(const string& nom, TypeUtilisateur type, double interet
 }
 Utilisateur::Utilisateur(const Utilisateur& utilisateur): 
 	type_(utilisateur.type_), nom_(utilisateur.nom_), interet_(utilisateur.interet_), 
-	totalDepense_(utilisateur.totalDepense_) {
+	totalDepense_(utilisateur.totalDepense_) /*depenses_(utilisateur.depenses_)*/ {
 }
 
 Utilisateur::~Utilisateur() {
@@ -52,11 +52,6 @@ void Utilisateur::setNom(const string& nom) {
 	nom_ = nom;
 }
 
-void Utilisateur::calculerTotalDepenses() {
-	for (int i = 0; i < depenses_.size(); i++) 
-		totalDepense_ += depenses_[i]->getMontant();
-}
-
 Utilisateur& Utilisateur::operator=(Utilisateur * utilisateur){
 	if (this != utilisateur)
 	{
@@ -79,16 +74,26 @@ Utilisateur& Utilisateur::operator+=(Depense* depense) {
 	return *this;
 }
 
+void Utilisateur::calculerTotalDepenses() {
+	for (int i = 0; i < depenses_.size(); i++) {
+		if (depenses_[i]->getType() == groupe)
+			totalDepense_ += static_cast<DepenseGroupe*>(depenses_[i])->getMontantPersonnel();
+		else
+			totalDepense_ += depenses_[i]->getMontant();
+	}
+}
+
 // Methode d'affichage
 ostream& operator<<(ostream& os, const Utilisateur& utilisateur){
-	os << "Utilisateur : " << utilisateur.getNom()
-		<< " a depense pour un total de : " 
-		<< " avec un interet de " << utilisateur.getInteret()
-		<< utilisateur.getTotalDepenses() << endl
+	os << " a depense pour un total de : " << utilisateur.getTotalDepenses()
+		<< ", Polycount prend en interet " << utilisateur.getInteret() << endl
 		<< "\t\t Liste de depenses : " << endl;
 
 	for (int i = 0; i < utilisateur.depenses_.size(); i++) {
-		os << "\t\t\t" << *(utilisateur.depenses_[i]);
+		if (utilisateur.depenses_[i]->getType() == groupe)
+			os << *static_cast<DepenseGroupe*>(utilisateur.depenses_[i]);
+		else
+			os << "\t\t\t" << *(utilisateur.depenses_[i]);
 	}
 	return os;
 }
