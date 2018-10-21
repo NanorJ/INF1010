@@ -1,3 +1,9 @@
+/********************************************************************************
+* Titre: Travail pratique #3 - depenseIndividuelle.h
+* Auteur: Nanor Janjikian (1901777) et Stéphanie Mansour (1935595)
+* Date: 22 octobre 2018
+*********************************************************************************/
+
 #ifndef DEPENSE_INDIVIDUELLE_H
 #define DEPENSE_INDIVIDUELLE_H
 
@@ -6,8 +12,6 @@
 #include <iostream>
 
 using namespace std; 
-
-
 
 class DepenseIndividuelle : public Depense {
 

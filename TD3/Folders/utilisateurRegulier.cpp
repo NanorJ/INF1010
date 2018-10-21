@@ -1,5 +1,11 @@
-#include "utilisateurRegulier.h"
+/***********************************************************************************************
+* Titre: Travail pratique #3 - utilisateurRegulier.cpp
+* Auteur: Nanor Janjikian (1901777) et Stéphanie Mansour (1935595)
+* Date: 22 octobre 2018
+* Description: Ce code contient les méthodes implémentées de utilisateurRegulier.h
+************************************************************************************************/
 
+#include "utilisateurRegulier.h"
 
 UtilisateurRegulier::UtilisateurRegulier(const string& nom, double interet, TypeUtilisateur type, bool estGroupe, double totalDepense): Utilisateur(nom, type, interet, totalDepense) {
 	estGroupe_ = estGroupe;

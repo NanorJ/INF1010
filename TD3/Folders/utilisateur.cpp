@@ -1,13 +1,14 @@
-/********************************************
-* Titre: Travail pratique #2 - utilisateur.cpp
-* Date: 16 septembre 2018
-* Auteur: Wassim Khene & David Dratwa 
-*******************************************/
+/**************************************************************************************
+* Titre: Travail pratique #3 - utilisateur.cpp
+* Auteur: Wassin khene & David Dratwa
+* Modifié par: Nanor Janjikian (1901777) et Stéphanie Mansour (1935595)
+* Date: 22 octobre 2018
+* Description: Ce code contient les méthodes implémentées de utilisateur.h
+***************************************************************************************/
 
 #include "utilisateur.h"
 
 // Constructeurs
-
 Utilisateur::Utilisateur(const string& nom, TypeUtilisateur type, double interet, double totalDepense) {
 	nom_ = nom;
 	type_ = type;

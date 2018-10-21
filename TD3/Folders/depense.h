@@ -1,16 +1,15 @@
-/********************************************
+/*************************************************************************************
 * Titre: Travail pratique #3 - depense.h
-* Date premiere version : 16 septembre 2018
-* Auteur: Wassim Khene & David Dratwa
-*******************************************/
+* Auteur: Wassin khene & David Dratwa
+* Modifié par: Nanor Janjikian (1901777) et Stéphanie Mansour (1935595)
+* Date: 22 octobre 2018
+**************************************************************************************/
 
 #ifndef DEPENSE_H
 #define DEPENSE_H
 
 #include <string>
 #include <iostream>
-
-
 
 using namespace std;
 

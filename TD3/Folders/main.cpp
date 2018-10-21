@@ -4,6 +4,26 @@
 * Auteur: David Dratwa
 *******************************************/
 
+/*********************************************************************************************************
+* Questions : 
+*	1. Pourquoi est-il logique de dériver une classe UtilisateurPremium et
+*		une classe UtilisateurRegulier d'une classe Utilisateur?
+*		Il est logique de faire ceci puisque, dans les deux classes,
+*		il existe une relation de type " est un " par rapport à la classe Utilisateur
+*		(UtilisateurPremium	est un utilisateur; UtilisateurRegulier est un Utilisateur).
+*	2. Dans la surcharge de l'opérateur << dans la classe Groupe
+*		a) Quelle est l'importance de l'utilisation d'un static_cast?
+*			Il est important d'utiliser le static_cast dans la classe Groupe puisque nous utilisons
+*			des vecteurs de type Utilisateur (vector <Utilisateur*> utilisateur_), et non des vecteurs
+*			de leurs classes dérivés (UtilisateurPremium et UtilisateurRegulier).
+*			Il faut donc utiliser le static_cast afin d'avoir accès aux méthodes de ces classes dérivées
+*			(de même, nous avons pu utiliser les méthodes d'affichage appropriées).
+*		b) Quel effet aura-t-on si on ne le considère pas dans l'implémentation?
+*			Si nous négligeons le static_cast dans l'implémentation, il sera impossible d'utiliser les
+*			méthodes des classes dérivés ci-dessus (et par conséquent, les méthodes d'affichage).
+*			Nous aurons seulement accès aux méthodes de la classe Utilisateur.
+**************************************************************************************************************/
+
 #include <iostream>
 #include "depense.h"
 #include "utilisateur.h"
@@ -25,7 +45,7 @@ int main() {
 	UtilisateurRegulier* allan = new UtilisateurRegulier("Allan");
 	UtilisateurRegulier* clemence = new UtilisateurRegulier("Clemence");
 
-	// Initialisation des depenses 
+	//Initialisation des depenses 
 	Depense* d1 = new Depense("d1", 10, "Bruxelles");
 	Depense* d2 = new Depense("d2", 30, "Bruxelles");
 	Depense* d3 = new Depense("d3", 15, "Bruxelles");

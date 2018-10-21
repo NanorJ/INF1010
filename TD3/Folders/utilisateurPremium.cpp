@@ -1,3 +1,10 @@
+/***********************************************************************************************
+* Titre: Travail pratique #3 - utilisateurPremium.cpp
+* Auteur: Nanor Janjikian (1901777) et Stéphanie Mansour (1935595)
+* Date: 22 octobre 2018
+* Description: Ce code contient les méthodes implémentées de utilisateurPremium.h
+*************************************************************************************************/
+
 #include "utilisateurPremium.h"
 
 UtilisateurPremium::UtilisateurPremium(const string& nom, double interet, TypeUtilisateur type, unsigned int joursRestants, double taux, double totalDepense): Utilisateur(nom, type, interet, totalDepense) {

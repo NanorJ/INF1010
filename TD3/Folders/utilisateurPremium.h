@@ -1,14 +1,14 @@
-/********************************************
+/*********************************************************************************************
 * Titre: Travail pratique #3 - utilisateurPremium.h
-* Date premiere version : 2 octobre 2018
 * Auteur: David Dratwa
-*******************************************/
+* Modifié par: Nanor Janjikian (1901777) et Stéphanie Mansour (1935595)
+* Date: 22 octobre 2018
+**********************************************************************************************/
 
 #ifndef UTILISATEUR_PREMIUM_H
 #define UTILISATEUR_PREMIUM_H
 
 #include "utilisateur.h"
-
 
 class UtilisateurPremium : public Utilisateur {
 public :

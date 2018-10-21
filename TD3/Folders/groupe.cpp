@@ -1,8 +1,10 @@
-/********************************************
-* Titre: Travail pratique #2 - groupe.cpp
-* Date: 16 septembre 2018
-* Auteur: Wassim Khene & David Dratwa
-*******************************************/
+/***********************************************************************************
+* Titre: Travail pratique #3 - groupe.cpp
+* Auteur: Wassin khene & David Dratwa
+* Modifié par: Nanor Janjikian (1901777) et Stéphanie Mansour (1935595)
+* Date: 22 octobre 2018
+* Description: Ce code contient les méthodes implémentées de groupe.h
+************************************************************************************/
 
 #include "groupe.h"
 
@@ -15,7 +17,7 @@ Groupe::Groupe(const string& nom) : nom_(nom) {
 }
 
 Groupe::~Groupe() {
-	for (int i = 0; i < transferts_.size(); i++)
+	for (unsigned int i = 0; i < transferts_.size(); i++)
 		delete transferts_[i];
 }
 
@@ -51,8 +53,8 @@ Groupe& Groupe::ajouterDepense(Depense* depense, Utilisateur* payePar, vector<Ut
 	
 	bool payeParPresent = false;
 	bool payePourPresentent = true;
-	int j = 0;
-	int i = 0;
+	unsigned int j = 0;
+	unsigned int i = 0;
 
 	while ((payeParPresent == false) && (i < utilisateurs_.size())){
 		if (utilisateurs_[i]->getNom() == payePar->getNom())
@@ -63,8 +65,9 @@ Groupe& Groupe::ajouterDepense(Depense* depense, Utilisateur* payePar, vector<Ut
 	if (payeParPresent == false)
 		payePourPresentent = false;
 	
-	i = 0;
+	
 	while ((payePourPresentent == true) && (j < payePour.size())) {
+		i = 0;
 		while (i < utilisateurs_.size()){
 			if (utilisateurs_[i]->getNom() == payePour[j]->getNom())
 				payePourPresentent = true;
@@ -83,13 +86,13 @@ Groupe& Groupe::ajouterDepense(Depense* depense, Utilisateur* payePar, vector<Ut
 			k++;
 		comptes_[k] = depense->getMontant() - static_cast<DepenseGroupe*>(depense)->getMontantPersonnel();
 
-		for (int i = 0; i < payePour.size(); i++) {
+		for (unsigned int i = 0; i < payePour.size(); i++) {
 			*payePour[i] += depense;
 			
 			k = 0;
 			while (payePour[i]->getNom() != utilisateurs_[k]->getNom())
 				k++;
-			comptes_[k] = static_cast<DepenseGroupe*>(depense)->getMontantPersonnel();
+			comptes_[k] -= static_cast<DepenseGroupe*>(depense)->getMontantPersonnel();
 		}
 	}
 	else
@@ -125,7 +128,7 @@ Groupe& Groupe::operator+=(Utilisateur* utilisateur) {
 void Groupe::equilibrerComptes() {
 	
 	bool calcul = true;
-	int count = 0;
+	unsigned int count = 0;
 	while (calcul) {
 		double max = 0;
 		double min = 0;
@@ -133,7 +136,7 @@ void Groupe::equilibrerComptes() {
 		int indexMin = 0;
 
 		// On cherche le compte le plus eleve et le moins eleve
-		for (int i = 0; i < utilisateurs_.size(); i++) {
+		for (unsigned int i = 0; i < utilisateurs_.size(); i++) {
 			if (comptes_[i] > max) {
 				max = comptes_[i];
 				indexMax = i;
@@ -183,10 +186,10 @@ void Groupe::equilibrerComptes() {
 }
 
 void Groupe::calculerTotalDepense() {
-	for (int i = 0; i < utilisateurs_.size(); i++)
+	for (unsigned int i = 0; i < utilisateurs_.size(); i++)
 		utilisateurs_[i]->calculerTotalDepenses();
 
-	for (int i = 0; i < depenses_.size(); i++)
+	for (unsigned int i = 0; i < depenses_.size(); i++)
 		totalDepenses_ += depenses_[i]->getMontant();
 }
 
@@ -195,7 +198,7 @@ ostream & operator<<(ostream& os, const Groupe& groupe) {
 	os << "\n\nL'evenement nomme : " << groupe.nom_ << " a coute un total (en terme de depenses groupees) : "
 		<< groupe.getTotalDepenses() << "$, voici les utilisateurs et toute leur depenses : \n";
 
-	for (int i = 0; i < groupe.utilisateurs_.size(); i++)
+	for (unsigned int i = 0; i < groupe.utilisateurs_.size(); i++)
 	{
 		if (groupe.utilisateurs_[i]->getType() == Regulier)
 			os << *(static_cast<UtilisateurRegulier*>(groupe.utilisateurs_[i]));
@@ -209,7 +212,7 @@ ostream & operator<<(ostream& os, const Groupe& groupe) {
 		os << "Les transferts suivants ont"
 			<< " ete realiser pour equilibrer  : " << endl;
 
-		for (int i = 0; i < groupe.transferts_.size(); i++)
+		for (unsigned int i = 0; i < groupe.transferts_.size(); i++)
 			os << "\t" << *(groupe.transferts_[i]);
 	}
 	else

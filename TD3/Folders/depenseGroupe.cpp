@@ -1,3 +1,10 @@
+/********************************************************************************************
+* Titre: Travail pratique #3 - depenseGroupe.cpp
+* Auteur: Nanor Janjikian (1901777) et Stéphanie Mansour (1935595)
+* Date: 22 octobre 2018
+* Description: Ce code contient les méthodes implémentées de depenseGroupe.h
+**********************************************************************************************/
+
 #include "depenseGroupe.h"
 
 DepenseGroupe::DepenseGroupe(const string& nom, double montant, const string& lieu, TypeDepense type, unsigned int nombreParticipants) : Depense(nom, montant, lieu) {
