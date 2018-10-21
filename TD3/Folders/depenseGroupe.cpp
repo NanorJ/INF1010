@@ -19,6 +19,8 @@ DepenseGroupe::DepenseGroupe(const DepenseGroupe& depense): Depense(depense) {
 unsigned int DepenseGroupe::getNombreParticipants() const {
 	return nombreParticipants_;
 }
+
+//retourner le montant à payer par personne
 double DepenseGroupe::getMontantPersonnel() const {
 	if (nombreParticipants_ == 0)
 		return 0.0;
@@ -30,10 +32,11 @@ void DepenseGroupe::setNombreParticipants(unsigned int nombre) {
 	nombreParticipants_ = nombre;
 }
  
+//Surchage opérateur << pour afficher une dépense groupée
 ostream& operator<<(ostream& os, const DepenseGroupe& depense) {
-	os << "\n\t\t Depense de groupe :" << static_cast<Depense> (depense)
-		<< " fait par " << depense.getNombreParticipants() << " personne"
-		<< " (soit d'un montant de " << depense.getMontantPersonnel() << "$ par personne)";
+	os << "\t\t Depense de groupe :" << static_cast<Depense> (depense)
+		<< " \t\t\t fait par : " << depense.getNombreParticipants() << " personnes"
+		<< ", soit un montant de " << depense.getMontantPersonnel() << " $ par personne. \n";
 
 	return os;
 }

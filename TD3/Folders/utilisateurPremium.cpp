@@ -29,23 +29,24 @@ void UtilisateurPremium::setJoursRestants(unsigned int joursRestants) {
 	joursRestants_ = joursRestants;
 }
 
+//calcul le taux en fonction du nombre de dépenses 
 void UtilisateurPremium::calculerTaux() {
 	if (getNombreDepenses() < 10)
 		taux_ = 0.05 - (0.01 * (getNombreDepenses() / 2));
 	else taux_ = 0.0;
 }
-
+//operateur = utilise la surcharge de la classe Utilisateur
 UtilisateurPremium& UtilisateurPremium::operator= (Utilisateur* utilisateur) { 
 	if (this != utilisateur)
 		static_cast<Utilisateur> (*utilisateur) = *this; //deep copy
 	return *this;
 }
-
+//opérateur << de la classe de base et afficher le taux et le nombre de jours
 ostream& operator << (ostream& os, const UtilisateurPremium& utilisateur) {
-	os << "\n \t Utilisateur " << utilisateur.getNom() << " (Premium) "
+	os << "\t Utilisateur " << utilisateur.getNom() << " (Premium) "
 		<< static_cast<Utilisateur>(utilisateur)
-		<< "\n\n\t\t Autre information : sont taux final est de " << utilisateur.getTaux()*100 
-		<< "% et sont abonnement expire dans " << utilisateur.getJoursRestants() << " jours"
+		<< "\t\t Autres informations : taux final de " << utilisateur.getTaux()*100 
+		<< " % et son abonnement expire dans " << utilisateur.getJoursRestants() << " jours"
 		<< endl;
 	
 	return os;

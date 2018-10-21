@@ -76,8 +76,8 @@ Depense& Depense::operator=(const Depense& depense) {
 }
 
 ostream& operator<<(ostream &os, const Depense& depense) {
-	os << "\n\t\t Achat fait a " << *(depense.getLieu()) << ": " << depense.getNom()
-		<< " pour un prix de " << depense.getMontant() << "$";
-
+	os << "\n\t\t Achat fait (a " << *(depense.getLieu()) << "): " << depense.getNom()
+		<< " pour un prix de " << depense.getMontant() << " $ \n";
+	
 	return os;
 }

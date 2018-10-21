@@ -48,14 +48,15 @@ void Groupe::setNom(const string& nom) {
 	nom_ = nom;
 }
 
-// Methodes d'ajout
+// Methodes d'ajout et prend en paramètre un utilisateur (celui qui paie la dépense) et un vecteur d'utilisateur(ceux avec qui la dépense sera partagée)
 Groupe& Groupe::ajouterDepense(Depense* depense, Utilisateur* payePar, vector<Utilisateur*> payePour) {
 	
 	bool payeParPresent = false;
 	bool payePourPresentent = true;
 	unsigned int j = 0;
 	unsigned int i = 0;
-
+	//Verifier que tous les utilisateurs concernés soient là
+	//Verifie que la dépense soit bien une DepenseGroupe
 	while ((payeParPresent == false) && (i < utilisateurs_.size())){
 		if (utilisateurs_[i]->getNom() == payePar->getNom())
 			payeParPresent = true;
@@ -75,7 +76,8 @@ Groupe& Groupe::ajouterDepense(Depense* depense, Utilisateur* payePar, vector<Ut
 		}
 		j++;
 	}
-
+	//Ajoute la dépense aux utilisateurs concernés
+	//Mets à jour les comptes des utilisateurs concernés
 	if ((depense->getType() == groupe) && (payePourPresentent == true)){
 		static_cast<DepenseGroupe*>(depense)->setNombreParticipants(unsigned int(payePour.size() + 1));
 		depenses_.push_back(static_cast<DepenseGroupe*>(depense));
@@ -88,19 +90,20 @@ Groupe& Groupe::ajouterDepense(Depense* depense, Utilisateur* payePar, vector<Ut
 
 		for (unsigned int i = 0; i < payePour.size(); i++) {
 			*payePour[i] += depense;
-			
+			//Ajoute la dépense au groupe
 			k = 0;
 			while (payePour[i]->getNom() != utilisateurs_[k]->getNom())
 				k++;
 			comptes_[k] -= static_cast<DepenseGroupe*>(depense)->getMontantPersonnel();
 		}
 	}
+	//Sinon affiche une erreur
 	else
 		cout << "\nErreur: Vous tentez d'ajouter une depense individuelle au groupe ou alors les personnes impliquees dans la depense groupe ne sont pas dans le groupe \n";
 	return *this;
 }
 
-
+//opérateur += ajoute un utilisateur* (vérifier si l’ajout est possible en respectant la logique des abonnements premium)
 Groupe& Groupe::operator+=(Utilisateur* utilisateur) {
 	bool estAjouter = true;
 	if (utilisateur->getType() == Regulier) {
@@ -124,7 +127,7 @@ Groupe& Groupe::operator+=(Utilisateur* utilisateur) {
 	return *this;
 }
 
-
+//Ajouter l’intérêt aux utilisateurs ayant le rôle de donneur dans les transferts
 void Groupe::equilibrerComptes() {
 	
 	bool calcul = true;
@@ -184,7 +187,7 @@ void Groupe::equilibrerComptes() {
 	}
 	
 }
-
+//Mettre à jour le total dépense de tous les utilisateurs (en utilisant la méthode déjà implémentée) et du groupe
 void Groupe::calculerTotalDepense() {
 	for (unsigned int i = 0; i < utilisateurs_.size(); i++)
 		utilisateurs_[i]->calculerTotalDepenses();
@@ -193,10 +196,10 @@ void Groupe::calculerTotalDepense() {
 		totalDepenses_ += depenses_[i]->getMontant();
 }
 
-// Methode d'affichage
+// Methode d'affichage de l'opérateur << affiche les utilisateurs, les transferts et les comptes
 ostream & operator<<(ostream& os, const Groupe& groupe) {
-	os << "\n\nL'evenement nomme : " << groupe.nom_ << " a coute un total (en terme de depenses groupees) : "
-		<< groupe.getTotalDepenses() << "$, voici les utilisateurs et toute leur depenses : \n";
+	os << "\nL'evenement nomme : " << groupe.nom_ << " a coute un total (en terme de depenses groupes) : "
+		<< groupe.getTotalDepenses() << " $, voici les utilisateurs et toute leurs depenses : \n";
 
 	for (unsigned int i = 0; i < groupe.utilisateurs_.size(); i++)
 	{

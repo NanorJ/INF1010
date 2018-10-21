@@ -35,7 +35,7 @@ public:
 	void setNom(const string& nom);
 	void setMontant(double montant);
 	void setLieu(const string& lieu);
-	void setType(TypeDepense type); 
+	void setType(TypeDepense type); //change le type de depense
 	
 	//operateurs
 	Depense& operator=(const Depense& depense);

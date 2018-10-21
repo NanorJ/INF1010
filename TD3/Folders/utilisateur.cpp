@@ -65,7 +65,7 @@ Utilisateur& Utilisateur::operator=(Utilisateur * utilisateur){
 	return *this;
 }
 
-
+//Prendre en paramètre le montant à ajouter à l'intérêt
 void Utilisateur::ajouterInteret(double montant) {
 	interet_ += montant;
 }
@@ -76,7 +76,7 @@ Utilisateur& Utilisateur::operator+=(Depense* depense) {
 }
 
 void Utilisateur::calculerTotalDepenses() {
-	for (int i = 0; i < depenses_.size(); i++) {
+	for (unsigned int i = 0; i < depenses_.size(); i++) {
 		if (depenses_[i]->getType() == groupe)
 			totalDepense_ += static_cast<DepenseGroupe*>(depenses_[i])->getMontantPersonnel();
 		else
@@ -84,14 +84,14 @@ void Utilisateur::calculerTotalDepenses() {
 	}
 }
 
-// Methode d'affichage
+// Methode d'affichage avec l'interet
 ostream& operator<<(ostream& os, const Utilisateur& utilisateur){
 	os << "a depense pour un total de " << utilisateur.getTotalDepenses()
-		<< "$, Polycount prend en interet " << utilisateur.getInteret() << "%, voici ses depenses : \n";
+		<< " $, Polycount prend en interet " << utilisateur.getInteret() << " %, voici les depenses : \n";
 
-	for (int i = 0; i < utilisateur.depenses_.size(); i++) {
+	for (unsigned int i = 0; i < utilisateur.depenses_.size(); i++) {
 		if (utilisateur.depenses_[i]->getType() == groupe)
-			os << "\n" << *static_cast<DepenseGroupe*>(utilisateur.depenses_[i]);
+			os << *static_cast<DepenseGroupe*>(utilisateur.depenses_[i]);
 		else
 			os << "\t\t" << static_cast<Depense> (*utilisateur.depenses_[i]);
 	}

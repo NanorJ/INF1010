@@ -3,6 +3,7 @@
 * Auteur: Nanor Janjikian (1901777) et Stéphanie Mansour (1935595)
 * Date: 22 octobre 2018
 * Description: Ce code contient les méthodes implémentées de utilisateurRegulier.h
+* Elle représente un utilisateur régulier.
 ************************************************************************************************/
 
 #include "utilisateurRegulier.h"
@@ -23,13 +24,13 @@ void UtilisateurRegulier::setEtatGroupe(bool etat) {
 	estGroupe_ = etat;
 }
 
-//surcharge
+//la surcharge de l'opérateur = de la classe Utilisateur
 UtilisateurRegulier& UtilisateurRegulier::operator=(Utilisateur* utilisateur) {
 	if (this != utilisateur)
 		static_cast<Utilisateur> (*utilisateur) = *this; // ca copie les attibuts de utilisateurRegulier (this) dans utilisateur
 	return *this;
 }
-
+//operator << de la classe de base pour afficher l'état de estGroupe_
 ostream& operator<< (ostream& os, const UtilisateurRegulier& utilisateur){
 	os << "\n\n \t Utilisateur : " << utilisateur.getNom() << " (Regulier) ";
 
