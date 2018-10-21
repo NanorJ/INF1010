@@ -41,7 +41,7 @@ public:
 
 	// Methodes de calcul
 	void equilibrerComptes();
-	void calculerTotalDepense(); 
+	void calculerTotalDepense() ; 
 
 	// Methode d'affichage
 	friend ostream& operator<<(ostream& os, const Groupe& groupe);

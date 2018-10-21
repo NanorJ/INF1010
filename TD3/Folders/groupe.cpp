@@ -7,10 +7,10 @@
 #include "groupe.h"
 
 // Constructeurs
-
 Groupe::Groupe() {
-	nom_ = ""; // ajouter totalDepense_
+	nom_ = "";
 }
+
 Groupe::Groupe(const string& nom) : nom_(nom) {
 }
 
@@ -18,7 +18,6 @@ Groupe::~Groupe() {
 	for (int i = 0; i < transferts_.size(); i++)
 		delete transferts_[i];
 }
-
 
 // Methodes d'acces
 string Groupe::getNom() const {
@@ -49,159 +48,76 @@ void Groupe::setNom(const string& nom) {
 
 // Methodes d'ajout
 Groupe& Groupe::ajouterDepense(Depense* depense, Utilisateur* payePar, vector<Utilisateur*> payePour) {
-	/*bool payeParPresent = false;
+	
+	bool payeParPresent = false;
+	bool payePourPresentent = true;
+	int j = 0;
 	int i = 0;
-	while ((payeParPresent == false) && (i < utilisateurs_.size())) {
-		if (utilisateurs_[i] == payePar)
+
+	while ((payeParPresent == false) && (i < utilisateurs_.size())){
+		if (utilisateurs_[i]->getNom() == payePar->getNom())
 			payeParPresent = true;
 		i++;
 	}
 
-	bool payePourExistent = true;
 	if (payeParPresent == false)
-		payePourExistent = false;
-
-	int j = 0;
-	while ((payePourExistent == true) && (j < payePour.size()))
-	{
-		i = 0;
-		payeParPresent = false;
-		while ((payeParPresent == false) && (i < utilisateurs_.size()))
-		{
-			if (utilisateurs_[i]->getNom() == payePour[j]->getNom())
-				payeParPresent = true;
-
-			i++;
-		}
-		j++;
-		if ((payeParPresent == false) && (i < utilisateurs_.size()))
-			payePourExistent = false;
-	}
-
-
-
-	for (int i = 0; i < payePour.size(); i++) {
-		int j = 0;
-		while (payePour[i] != this->utilisateurs_[j] && j < payePour.size()) {
-			payePourExistent = false;
-			j++;
-		}
-		if (j < payePour.size()) payePourExistent = true;
-	}
+		payePourPresentent = false;
 	
-	if (payePourExistent) {
-		if (depense->getType() == groupe) {
-			payePar->get
-		}
-	}*/
-
-	// Verification de la presence de l'utilisateur payePar dans le groupe
-	bool estPresent = false;
-	size_t i = 0;
-	while ((estPresent == false) && (i < utilisateurs_.size()))
-	{
-		if (utilisateurs_[i]->getNom() == payePar->getNom())
-			estPresent = true;
-
-		i++;
-	}
-
-	bool sontPresents = true;
-	if (estPresent == false)
-		sontPresents = false;
-
-	// Verification de la presence des utilisateurs payePour dans le groupe
-	size_t j = 0;
-	while ((sontPresents == true) && (j < payePour.size()))
-	{
-		i = 0;
-		estPresent = false;
-		while ((estPresent == false) && (i < utilisateurs_.size()))
-		{
+	i = 0;
+	while ((payePourPresentent == true) && (j < payePour.size())) {
+		while (i < utilisateurs_.size()){
 			if (utilisateurs_[i]->getNom() == payePour[j]->getNom())
-				estPresent = true;
-
+				payePourPresentent = true;
 			i++;
 		}
 		j++;
-		if ((estPresent == false) && (i < utilisateurs_.size()))
-			sontPresents = false;
 	}
 
-	// Ajout de la depense aux utilisateur s'il sont tous present 
-	// et que la depense est de groupe
-	if ((depense->getType() == groupe) && (sontPresents == true))
-	{
-		// Modification du nombre de participant de la depense
-		static_cast<DepenseGroupe*>(depense)
-			->setNombreParticipants(unsigned int(payePour.size() + 1));
-
-		// Ajout de la depense a la liste de depense du groupe
+	if ((depense->getType() == groupe) && (payePourPresentent == true)){
+		static_cast<DepenseGroupe*>(depense)->setNombreParticipants(unsigned int(payePour.size() + 1));
 		depenses_.push_back(static_cast<DepenseGroupe*>(depense));
-
-		// Ajout de la depense a l'utilisateur payePar
 		(*payePar) += depense;
 
-		// Recherche de l'index de l'utilisateur payePar 
-		// dans la liste d'utilisateurs
-		size_t i = 0;
-		while (payePar->getNom() != utilisateurs_[i]->getNom())
-		{
-			i++;
-		}
+		int k = 0;
+		while (payePar->getNom() != utilisateurs_[k]->getNom())
+			k++;
+		comptes_[k] = depense->getMontant() - static_cast<DepenseGroupe*>(depense)->getMontantPersonnel();
 
-		// Ajustement du comptes de l'utilisateur payePar 
-		// (Il doit se faire rembourse la partie des autres)
-		comptes_[i] += depense->getMontant()
-			- static_cast<DepenseGroupe*>(depense)->getMontantPersonnel();
-
-		// On repete l'operation fait sur l'utilisateur payePar 
-		// mais pour les utilisateurs payePour
-		for (size_t i = 0; i < payePour.size(); i++)
-		{
-
+		for (int i = 0; i < payePour.size(); i++) {
 			*payePour[i] += depense;
-			j = 0;
-			while (payePour[i]->getNom() != utilisateurs_[j]->getNom())
-			{
-				j++;
-			}
-			// Les utilisateurs payePour doivent rembourser leur montant personnel
-			comptes_[j] -= static_cast<DepenseGroupe*>(depense)->getMontantPersonnel();
+			
+			k = 0;
+			while (payePour[i]->getNom() != utilisateurs_[k]->getNom())
+				k++;
+			comptes_[k] = static_cast<DepenseGroupe*>(depense)->getMontantPersonnel();
 		}
 	}
 	else
-	{
-		cout << "\nErreur	:	Vous tentez d'ajouter une depense individuelle au groupe "
-			<< "ou alors les personnes impliquees dans la depense groupe ne sont pas dans le groupe";
-	}
-
+		cout << "\nErreur: Vous tentez d'ajouter une depense individuelle au groupe ou alors les personnes impliquees dans la depense groupe ne sont pas dans le groupe \n";
 	return *this;
-
 }
 
 
 Groupe& Groupe::operator+=(Utilisateur* utilisateur) {
 	bool estAjouter = true;
 	if (utilisateur->getType() == Regulier) {
-		if (static_cast<UtilisateurRegulier*>(utilisateur)->estGroupe() == true)
+		if (static_cast<UtilisateurRegulier*>(utilisateur)->estGroupe() == true) {
 			estAjouter = false;
-		else
-			static_cast<UtilisateurRegulier*>(utilisateur)->setEtatGroupe(true);
+			cout << "\nErreur : L'utilisateur " << utilisateur->getNom()
+				<< " n'est pas souscrit a un abonnement premium, et fait deja partie d'un groupe\n";
+		} else static_cast<UtilisateurRegulier*>(utilisateur)->setEtatGroupe(true);
 	}
 	if (utilisateur->getType() == Premium) {
-		if (static_cast<UtilisateurPremium*>(utilisateur)->getJoursRestants() == 0)
+		if (static_cast<UtilisateurPremium*>(utilisateur)->getJoursRestants() == 0) {
 			estAjouter = false;
-		else estAjouter = true;
+			cout << "\nErreur : L'utilisateur " << utilisateur->getNom()
+				<< " doit renouveler abonnement premium";
+		} else estAjouter = true;
 	}
 	if (estAjouter == true) {
 		comptes_.push_back(0.0);
 		utilisateurs_.push_back(utilisateur);
-	}
-	else {
-		cout << "\n Erreur : " << utilisateur->getNom()
-			<< " n'est pas souscrit a un abonnement premium, et est deja groupe";
-	}
+	} 
 	return *this;
 }
 
@@ -237,11 +153,11 @@ void Groupe::equilibrerComptes() {
 			if (utilisateurs_[indexMin]->getType() == Regulier)
 				utilisateurs_[indexMin]->ajouterInteret(0.05 * -min);
 			else {
+				static_cast<UtilisateurPremium*>(utilisateurs_[indexMin])->calculerTaux();
 				double taux = static_cast<UtilisateurPremium*>(utilisateurs_[indexMin])->getTaux();
 				utilisateurs_[indexMin]->ajouterInteret(taux * -min);
 			}
 		}
-
 		else if (-min > max  && min != 0 && max != 0) {
 			transferts_.push_back(new Transfert(max, utilisateurs_[indexMin], utilisateurs_[indexMax]));
 			comptes_[indexMax] = 0;
@@ -250,6 +166,7 @@ void Groupe::equilibrerComptes() {
 			if (utilisateurs_[indexMin]->getType() == Regulier)
 				utilisateurs_[indexMin]->ajouterInteret(0.05 * max);
 			else {
+				static_cast<UtilisateurPremium*>(utilisateurs_[indexMin])->calculerTaux();
 				double taux = static_cast<UtilisateurPremium*>(utilisateurs_[indexMin])->getTaux();
 				utilisateurs_[indexMin]->ajouterInteret(taux * max);
 			}
@@ -275,15 +192,15 @@ void Groupe::calculerTotalDepense() {
 
 // Methode d'affichage
 ostream & operator<<(ostream& os, const Groupe& groupe) {
-	os << "\n\nL'evenement " << groupe.nom_ << " a coute un total (en terme de depenses groupees) de : "
-		<< groupe.getTotalDepenses() << "\n Voici les utilisateurs et toute leur depenses :";
+	os << "\n\nL'evenement nomme : " << groupe.nom_ << " a coute un total (en terme de depenses groupees) : "
+		<< groupe.getTotalDepenses() << "$, voici les utilisateurs et toute leur depenses : \n";
 
 	for (int i = 0; i < groupe.utilisateurs_.size(); i++)
 	{
 		if (groupe.utilisateurs_[i]->getType() == Regulier)
 			os << *(static_cast<UtilisateurRegulier*>(groupe.utilisateurs_[i]));
 		else
-			os << *(static_cast<UtilisateurPremium*>(groupe.utilisateurs_[i]));
+			os << "\n" << *(static_cast<UtilisateurPremium*>(groupe.utilisateurs_[i]));
 	}
 	os << endl;
 
@@ -297,6 +214,6 @@ ostream & operator<<(ostream& os, const Groupe& groupe) {
 	}
 	else
 		os << "Les comptes ne sont pas equilibres" << endl << endl;
-	os << endl;
+	
 	return os;
 }

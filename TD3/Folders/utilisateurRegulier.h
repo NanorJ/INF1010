@@ -12,7 +12,7 @@ class UtilisateurRegulier : public Utilisateur {
 public : 
 
 	//constructeurs 
-	UtilisateurRegulier(const string& nom = "", double interet = TAUX_REGULIER, TypeUtilisateur type = Regulier, bool estGroupe = false, double totalDepense = 0.0);
+	UtilisateurRegulier(const string& nom = "", double interet = 0.0, TypeUtilisateur type = Regulier, bool estGroupe = false, double totalDepense = 0.0);
 	UtilisateurRegulier(const Utilisateur& utilisateur); 
 
 

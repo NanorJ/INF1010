@@ -5,7 +5,7 @@
 *******************************************/
 
 #include <iostream>
-#include "depense.h";
+#include "depense.h"
 #include "utilisateur.h"
 #include "transfert.h"
 #include "groupe.h"
@@ -15,12 +15,12 @@ using namespace std;
 int main() {
 
 	//initialisation des utilisateurs et des comptes utilisateurs: 
-	UtilisateurPremium* alex = new UtilisateurPremium("alex");
+	UtilisateurPremium* alex = new UtilisateurPremium("Alex");
 	UtilisateurPremium* max = new UtilisateurPremium("Max");
 	UtilisateurPremium* henri = new UtilisateurPremium("Henri");
 	UtilisateurPremium* louis = new UtilisateurPremium("Louis"); 
 
-	UtilisateurRegulier* albert = new UtilisateurRegulier("albert");
+	UtilisateurRegulier* albert = new UtilisateurRegulier("Albert");
 	UtilisateurRegulier* charles = new UtilisateurRegulier("Charles");
 	UtilisateurRegulier* allan = new UtilisateurRegulier("Allan");
 	UtilisateurRegulier* clemence = new UtilisateurRegulier("Clemence");

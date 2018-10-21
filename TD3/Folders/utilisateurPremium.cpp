@@ -28,17 +28,18 @@ void UtilisateurPremium::calculerTaux() {
 	else taux_ = 0.0;
 }
 
-UtilisateurPremium& UtilisateurPremium::operator= (Utilisateur* utilisateur) { //might cause an error
+UtilisateurPremium& UtilisateurPremium::operator= (Utilisateur* utilisateur) { 
 	if (this != utilisateur)
 		static_cast<Utilisateur> (*utilisateur) = *this; //deep copy
 	return *this;
 }
 
 ostream& operator << (ostream& os, const UtilisateurPremium& utilisateur) {
-	os << "Utilisateur : " << utilisateur.getNom() << "(Premium)"
+	os << "\n \t Utilisateur " << utilisateur.getNom() << " (Premium) "
 		<< static_cast<Utilisateur>(utilisateur)
-		<< "Le taux final est de : " << utilisateur.getTaux()
-		<< "Il reste " << utilisateur.getJoursRestants() << " jours a son abonnement. \n"
+		<< "\n\n\t\t Autre information : sont taux final est de " << utilisateur.getTaux()*100 
+		<< "% et sont abonnement expire dans " << utilisateur.getJoursRestants() << " jours"
 		<< endl;
+	
 	return os;
 }

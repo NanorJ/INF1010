@@ -34,8 +34,7 @@ double Depense::getMontant() const {
 	return montant_;
 }
 
-string* Depense::getLieu() const
-{
+string* Depense::getLieu() const {
 	return lieu_;
 }
 
@@ -76,9 +75,8 @@ Depense& Depense::operator=(const Depense& depense) {
 }
 
 ostream& operator<<(ostream &os, const Depense& depense) {
-	os << "Achat : " << depense.getNom()
-		<< " Lieu : " << depense.getLieu()
-		<< " Prix : " << depense.getMontant();
+	os << "\n\t\t Achat fait a " << *(depense.getLieu()) << ": " << depense.getNom()
+		<< " pour un prix de " << depense.getMontant() << "$";
 
 	return os;
 }
