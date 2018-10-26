@@ -87,6 +87,14 @@ Utilisateur& Utilisateur::operator+=(Depense* depense) {
 	depenses_.push_back(depense);
 	return *this;
 }
+//a faire
+void Utilisateur::print(ostream& os) const
+{
+	os << "Dépenses : \n";
+	for (unsigned int i = 0; i < depenses_.size(); i++) {
+		os << depenses_[i] << endl;
+	}
+}
 
 // Methode d'affichage
 ostream& operator<<(ostream& os, const Utilisateur& utilisateur)
