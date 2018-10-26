@@ -87,7 +87,7 @@ void Utilisateur::calculerTotalDepenses() {
 // Methode d'affichage avec l'interet
 ostream& operator<<(ostream& os, const Utilisateur& utilisateur){
 	os << "a depense pour un total de " << utilisateur.getTotalDepenses()
-		<< " $, Polycount prend en interet " << utilisateur.getInteret() << " %, voici les depenses : \n";
+		<< " $, Polycount prend en interet " << utilisateur.getInteret() << ", voici les depenses : \n";
 
 	for (unsigned int i = 0; i < utilisateur.depenses_.size(); i++) {
 		if (utilisateur.depenses_[i]->getType() == groupe)
