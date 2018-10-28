@@ -1,0 +1,9 @@
+grade : 16/20
+feedback : 
+-depense.h : manque le destructeur (pour le lieu)
+
+-groupe.h : manque le destructeur (pour les transferts) 
+
+-utilisateur.cpp : 
+
+  -operator= ...
