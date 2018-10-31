@@ -8,12 +8,12 @@
 
 // Constucteurs
 
+
 Depense::Depense(const string& nom, double montant, const string& lieu) {
 	nom_ = nom;
 	montant_ = montant;
 	lieu_ = new string(lieu);
 }
-
 
 // Methodes d'acces
 string Depense::getNom() const {

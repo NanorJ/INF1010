@@ -26,6 +26,10 @@ Utilisateur* Transfert::getExpediteur() const {
 Utilisateur* Transfert::getReceveur() const {
 	return receveur_;
 }
+//TODO
+double Transfert::getFraisTransfert() const {
+	return;
+}
 
 // Methodes de modifications
 void Transfert::setMontant(double montant) {
@@ -42,4 +46,5 @@ void Transfert::setReceveur(Utilisateur *receveur) {
 
 //Methode affichage
 ostream& operator<<(ostream& os, const Transfert& transfert) {
+
 }
