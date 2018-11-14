@@ -30,12 +30,14 @@ class AjouterUtilisateur {
 					return conteneur_;//sortira directement de la classe sans avoir inserer la cle utilisateur
 				}
 			}
-			if (dynamic_cast<UtilisateurRegulier*>(utilisateur)->getPossedeGroupe() == 1 && dynamic_cast<UtilisateurRegulier*>(utilisateur))
+			if (dynamic_cast<UtilisateurRegulier*>(utilisateur)->getPossedeGroupe() == 0 && dynamic_cast<UtilisateurRegulier*>(utilisateur)){
 				conteneur_.insert(make_pair(utilisateur, 0));
+				dynamic_cast<UtilisateurRegulier*>(utilisateur)->setPossedeGroupe(True);
+			}
 			else
 				cout << "Erreur : L'utilisateur " << utilisateur->getNom() << " n'est pas un utilisateur premium et est deja dans un groupe." << endl;
 
-			if (dynamic_cast<UtilisateurPremium*>(utilisateur) && dynamic_cast<UtilisateurPremium*>(utilisateur)->getJoursRestants() >= 0) 
+			if (dynamic_cast<UtilisateurPremium*>(utilisateur) && dynamic_cast<UtilisateurPremium*>(utilisateur)->getJoursRestants() > 0) 
 				conteneur_.insert(make_pair(utilisateur, 0));
 			else	
 				cout << "Erreur : L'utilisateur " << utilisateur->getNom() << " doit renouveler son abonnement premium" << endl;
@@ -52,7 +54,7 @@ class FoncteurIntervalle {
 		//constructeur
 		FoncteurIntervalle(double borneInf, double borneSup) : borneInf_(borneInf), borneSup_(borneSup) {};
 		bool operator()(pair<Utilisateur*, double> intervalle) { 
-			if (intervalle.first->getBalance <= borneSup_ && intervalle.first->getBalance >= borneInf_) // .second?
+			if (intervalle.second <= borneSup_ && intervalle.second >= borneInf_)
 				return true;
 			else return false;
 		}
