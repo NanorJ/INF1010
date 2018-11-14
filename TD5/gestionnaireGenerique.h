@@ -3,35 +3,36 @@
 * Date: 4 novembre 2018
 * Auteur: Ryan Hardie
 *******************************************/
-#include"foncteur.h"//can we add this?
-//typename : type generique de variables
+#include "foncteur.h"
+// typename : type generique de variables
 template <typename T, typename C, typename D, typename FoncteurAjouter>
 
 //gestionnaire Depense et Utilisateur herite de Gestionnaire Generique donc on doit specifier les type dans les templates : GG< T,C , specifier ...D , , > 
 
 class GestionnaireGenerique {
-public:
-	C getConteneur() const 	{
-		return conteneur_;//du gestionnaire?
-	}
-	//i would rather do a template here for FoncteurAjouter
-	void ajouter(T t)	{
-		FoncteurAjouter(t); //help
-	}
-	int getNombreElements() const 	{
-		return conteneur_.size() ;//??? this make sense?
-		//idk if we can do size or we do a counter
-	}
-	D getElementParIndex(int i) const {
-		// Cette méthode retourne un objet de type D qui peut être soit Depense* soit pair<Utilisateur*, double>
-		//since we dont know i put auto 
-		auto position = conteneur_.begin();//placing position at the beginning
-		position += i; // adding i to get the position wanted 
-		return *position;//getting le contenu de l'iterateur position 
-	}
+	public:
+		C getConteneur() const {
+			return conteneur_;
+		}
+		//i would rather do a template here for FoncteurAjouter
+	
+		void ajouter(T t, FoncteurAjouter foncteur) {
+			FoncteurAjouter foncteur(t);; //help
+			conteneur_ = foncteur;
+		}
+	
+		int getNombreElements() const {
+			unsigned compteur = 0;
+			auto end = conteneur_.end();
+			for (auto it = conteneur_.begin(); it != end; it++)
+				compteur++;
+			return compteur;
+		}
+	
+		D getElementParIndex(int i) const {
+			return *position(conteneur_.begin(), i);
+		}
 
-protected:
-	C conteneur_;
-
-	};
-
+	protected:
+		C conteneur_;
+};
