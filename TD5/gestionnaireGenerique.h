@@ -35,4 +35,6 @@ class GestionnaireGenerique {
 
 	protected:
 		C conteneur_;
+
 };
+
