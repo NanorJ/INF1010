@@ -14,19 +14,19 @@ class GestionnaireGenerique {
 		C getConteneur() const {
 			return conteneur_;
 		}
-		//i would rather do a template here for FoncteurAjouter
-	
-		void ajouter(T t, FoncteurAjouter foncteur) {
-			FoncteurAjouter foncteur(t);; //help
-			conteneur_ = foncteur;
+		
+		void ajouter(T t) {
+			FoncteurAjouter foncteur(conteneur_);
+			conteneur_ = foncteur(t);
 		}
 	
 		int getNombreElements() const {
-			unsigned compteur = 0;
+			//on a fait un size
+			/*unsigned compteur = 0;
 			auto end = conteneur_.end();
 			for (auto it = conteneur_.begin(); it != end; it++)
-				compteur++;
-			return compteur;
+				compteur++;*/
+			return conteneur_.size();
 		}
 	
 		D getElementParIndex(int i) const {
