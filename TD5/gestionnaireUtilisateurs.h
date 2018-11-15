@@ -4,8 +4,7 @@
 * Auteur: Ryan Hardie
 *******************************************/
 #include "utilisateur.h"
-#include "GestionnaireGenerique.h"
-
+#include "gestionnaireGenerique.h"
 #include <vector>
 #include <map>
 
