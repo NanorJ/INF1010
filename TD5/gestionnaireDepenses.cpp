@@ -1,4 +1,8 @@
-#include "gestionnaireDepenses.h"
+#pragma once
+
+#include "depense.h"
+#include "utilisateur.h"
+#include "gestionnaireGenerique.h"
 
 #include <algorithm>
 #include <functional>
