@@ -57,13 +57,10 @@ void GestionnaireUtilisateurs::mettreAJourComptes(Utilisateur* payePar, double m
 			//if (it->first != payePar)//si le champ Utilisateur de it est different  de l'adresse de paye par 
 			if (it != payeur)//si l'iterateur it est different de l'iterateur payeur
 				it->second -= montantReparti;
-
 		}
-
 		//rajouter a tous le monde sauf lui le montant reparti 
-
 	}
-};
+}
 pair<Utilisateur*, double>& GestionnaireUtilisateurs::getMax() const{
 
 };
