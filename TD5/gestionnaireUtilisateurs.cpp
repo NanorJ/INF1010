@@ -15,24 +15,19 @@ using namespace std::placeholders;
 
 vector<double> GestionnaireUtilisateurs::getComptes() const {
 	vector<double> compte;
-	unsigned int index = 0;
-	for (auto it = conteneur_.begin(); it != conteneur_.end(); it++) {
-		compte.push_back(getElementParIndex(index).second);
-		index++;
-	}
+	for (auto& value : conteneur_)
+		compte.push_back(value.second);
 	return compte;
 }
 
 bool GestionnaireUtilisateurs::estExistant(Utilisateur* utilisateur) const {
-	for (auto it = conteneur_.begin(); it != conteneur_.end(); it++) {
-		if (it->first == utilisateur)
-			return true;
-	}
+	if (conteneur_.find(utilisateur) != conteneur_.end())
+		return true;
 	return false;
 }
 
 void GestionnaireUtilisateurs::mettreAJourComptes(Utilisateur* payePar, double montant) {
-	
+	//we can use a find : https://github.com/xavoliva6/INF1010_TP5Final/blob/master/TP5/TP5/gestionnaireUtilisateurs.cpp
 	if (estExistant(payePar)) {
 		auto payeur = conteneur_.begin();
 		auto end = conteneur_.end();
@@ -70,51 +65,33 @@ pair<Utilisateur*, double>&  GestionnaireUtilisateurs::getMax() const {
 
 pair<Utilisateur*, double>&  GestionnaireUtilisateurs::getMin() const {
 	auto it = conteneur_.begin();
-	double min = it->second;//initialisation de la valeur max a la valeur du compte du premier utilisateur
+	double min = it->second;
 	Utilisateur* umin = it->first;
 	
-	for (it; it != conteneur_.end(); it++) { //parcourir le conteneur (map)
-		//chercher la valeur de compte la plus basse 
+	for (it; it != conteneur_.end(); it++) {
 		if (it->second < min) {
-			min = it->second;//sauvegarde dans la variable max la valeur de compte superieur apres la comparaison
-			umin = it->first;//sauvegarde dans la variable umax l'adresse de l'utilisateur adequat
+			min = it->second;
+			umin = it->first;
 		}
 	}
-	//apres avoir parcouru le conteneur ,pour la valeur max qui correspond a un utilisateur  creer une paire
 	pair < Utilisateur*, double> pairemin = make_pair(umin, min);
 	return pairemin;
 }
 
 Utilisateur *  GestionnaireUtilisateurs::getUtilisateurSuivant(Utilisateur* utilisateur, double montant) const {
-	pair<Utilisateur*, double> p = make_pair(utilisateur, montant);
-	auto trouve = find_if(conteneur_.begin(), conteneur_.end(), bind(equal_to<pair<Utilisateur*, double>>(), _1, p));
-	trouve++; //prend la position de l'iterateur trouve ++
-	
-	//Chercher l'iterateur correspondant et le dereferenceer pour le comparer avec le pointeur d'utilisateur
-	if (estExistant(trouve->first))
-		return trouve->first;	//Retourner l'utilisateur suivant puisqu'il existe
-	
-	else { //Afficher un message d'erreur et retourner l'utilisateur courant
-		cout << "Erreur!L'utilisateur " << trouve->first->getNom() << "est le dernier utilisateur de la liste.Il n'y aucun autre qui le suit ." << endl;
-		return trouve->first;
-	}
+	pair<Utilisateur*, double> personne = make_pair(utilisateur, montant);
+	auto suivant = find_if(conteneur_.begin(), conteneur_.end(), bind(greater<pair<Utilisateur*, double>>(), _1, personne));
+	return suivant->first;
 }
 
 vector<pair<Utilisateur*, double>>  GestionnaireUtilisateurs::getUtilisateursEntre(double borneInf, double borneSup) const {
-	vector<pair<Utilisateur*, double>> utilisateurentre;
-	copy_if(conteneur_.begin(), conteneur_.end(), back_inserter(utilisateurentre), FoncteurIntervalle(borneInf, borneSup));//on fait un "push_back' de l"element dans le conteneur si le predicat p est vrai
-	return utilisateurentre;
+	vector<pair<Utilisateur*, double>> utilisateurs;
+	copy_if(conteneur_.begin(), conteneur_.end(), back_inserter(utilisateurs), FoncteurIntervalle(borneInf, borneSup));
+	return utilisateurs;
 }
 
 GestionnaireUtilisateurs&  GestionnaireUtilisateurs::setCompte(pair<Utilisateur*, double> p) {
-	//verifier que l'utilisateur existe
-	if (estExistant(p.first)) {
-		//parcourir le conteneur a la recherche de l'utilisateur
-		double montant = p.second;
-		for (auto it = conteneur_.begin(); it != conteneur_.end(); it++) {//parcourir le conteneur
-			if (it->first == p.first)
-				it->second = p.second;
-		}
-	}
+	if (conteneur_.find(p.first) != conteneur_.end())
+		conteneur_[p.first] = p.second;
 	return *this;
 }
