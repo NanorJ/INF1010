@@ -6,10 +6,8 @@
 #pragma once
 
 #include "foncteur.h"//ask
-// typename : type generique de variables
-template <typename T, typename C, typename D, typename FoncteurAjouter>
 
-//gestionnaire Depense et Utilisateur herite de Gestionnaire Generique donc on doit specifier les type dans les templates : GG< T,C , specifier ...D , , > 
+template <typename T, typename C, typename D, typename FoncteurAjouter>
 
 class GestionnaireGenerique {
 	public:
@@ -23,16 +21,11 @@ class GestionnaireGenerique {
 		}
 	
 		int getNombreElements() const {
-			//on a fait un size
-			/*unsigned compteur = 0;
-			auto end = conteneur_.end();
-			for (auto it = conteneur_.begin(); it != end; it++)
-				compteur++;*/
 			return conteneur_.size();
 		}
 	
 		D getElementParIndex(int i) const {
-			return *position(conteneur_.begin(), i);
+			return *next(conteneur_.begin(), i);
 		}
 
 	protected:
