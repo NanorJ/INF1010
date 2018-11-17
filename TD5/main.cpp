@@ -174,14 +174,14 @@ int main() {
 	// Test 17: ajout de depense avec utilisateur hors du groupe
 	tests.push_back(groupe1->getDepenses().size() == 1);
 
-	// Test 18: modification des comptes
-
-	// TODO : Décommenter ce test et commenter le test suivant (pour pouvoir tester avec les méthodes de la classe GestionnaireGenerique) ---------
+		// Test 18: modification des comptes
+	// if uncommented 18 = pass
+	// TODO : DÃ©commenter ce test et commenter le test suivant (pour pouvoir tester avec les mÃ©thodes de la classe GestionnaireGenerique) ---------
 	/*tests.push_back(groupe1->getGestionnaireUtilisateurs()->getConteneur()[up1] == 150
 		&& groupe1->getComptes()[1] == -30);*/
 	// --------------------------------------------------------------------------------------------------------------------------------------------
-
-	// TODO : Commenter ce test et décommenter le test précédent (pour pouvoir tester avec les méthodes de la classe GestionnaireGenerique) -------
+	// if uncommented 18 = echec
+	// TODO : Commenter ce test et dÃ©commenter le test prÃ©cÃ©dent (pour pouvoir tester avec les mÃ©thodes de la classe GestionnaireGenerique) -------
 	tests.push_back(groupe1->getComptes()[0] == 150
 		&& groupe1->getComptes()[1] == -30);
 	// --------------------------------------------------------------------------------------------------------------------------------------------
@@ -196,8 +196,8 @@ int main() {
 		.ajouterDepense(180, up1, "d9");
 
 	// Test 19: bonne valeurs pour les comptes
-
-	// TODO : Commenter ce test et décommenter le test suivant (pour pouvoir tester avec les méthodes de la classe GestionnaireGenerique) ---------
+	// if uncommented 19 = echec
+	// TODO : Commenter ce test et dÃ©commenter le test suivant (pour pouvoir tester avec les mÃ©thodes de la classe GestionnaireGenerique) ---------
 	tests.push_back(groupe1->getComptes()[0] == 20
 		&& groupe1->getComptes()[1] == -100
 		&& groupe1->getComptes()[2] == 20
@@ -206,8 +206,8 @@ int main() {
 		&& groupe1->getComptes()[5] == -40
 		&& groupe1->getTotalDepenses() == 2040);
 	// --------------------------------------------------------------------------------------------------------------------------------------------
-
-	// TODO : Décommenter ce test et commenter le précédent (pour pouvoir tester avec les méthodes de la classe GestionnaireGenerique) ------------
+	// if uncommented only 19 = pass
+	// TODO : DÃ©commenter ce test et commenter le prÃ©cÃ©dent (pour pouvoir tester avec les mÃ©thodes de la classe GestionnaireGenerique) ------------
 	/*tests.push_back(groupe1->getGestionnaireUtilisateurs()->getConteneur()[up1] == 20
 		&& groupe1->getGestionnaireUtilisateurs()->getConteneur()[up3] == -100
 		&& groupe1->getGestionnaireUtilisateurs()->getConteneur()[up4] == 20
@@ -217,8 +217,8 @@ int main() {
 		&& groupe1->getTotalDepenses() == 2040);*/
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 
-	// Test 20 - 21 : verification de la méthode getUtilisateursEntre (obtenir les utilisateur contenant un compte compris entre -100 et 100 inclusivement)
-	// TODO : Décommenter lorsque votre TP sera terminé pour tester la méthode pour -----------------------------------------------------------------------
+	// Test 20 - 21 : verification de la mÃ©thode getUtilisateursEntre (obtenir les utilisateur contenant un compte compris entre -100 et 100 inclusivement)
+	// TODO : DÃ©commenter lorsque votre TP sera terminÃ© pour tester la mÃ©thode pour -----------------------------------------------------------------------
 	/*vector<pair<Utilisateur*, double>> vec = groupe1->getGestionnaireUtilisateurs()->getUtilisateursEntre(-100, 100);
 
 	tests.push_back(vec.size() == 4);
@@ -232,7 +232,7 @@ int main() {
 	// Test 22: verification des transferts
 	groupe1->equilibrerComptes();
 
-	// TODO : Commenter ce test et décommenter le test suivant (pour pouvoir tester avec les méthodes de la classe GestionnaireGenerique) ----------------
+	// TODO : Commenter ce test et dÃ©commenter le test suivant (pour pouvoir tester avec les mÃ©thodes de la classe GestionnaireGenerique) ----------------
 	tests.push_back(groupe1->getTransferts().size() == 4
 		&& groupe1->getComptes()[0] == 0
 		&& groupe1->getComptes()[1] == 0
@@ -242,7 +242,7 @@ int main() {
 		&& groupe1->getComptes()[5] == 0);
 	// ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-	// TODO : Décommenter ce test et commenter le précédent (pour pouvoir tester avec les méthodes de la classe GestionnaireGenerique) --------------------
+	// TODO : DÃ©commenter ce test et commenter le prÃ©cÃ©dent (pour pouvoir tester avec les mÃ©thodes de la classe GestionnaireGenerique) --------------------
 	/*tests.push_back(groupe1->getTransferts().size() == 4
 		&& groupe1->getGestionnaireUtilisateurs()->getConteneur()[up1] == 0
 		&& groupe1->getGestionnaireUtilisateurs()->getConteneur()[up3] == 0
@@ -273,7 +273,7 @@ int main() {
 		&& ur3->getBalance() == 2);
 
 	// TEST 30 : verification getUtilisateurSuivant
-	// TODO : Décommenter ce test pour pouvoir tester la méthode GetUtilisateurSuivant ----------------
+	// TODO : DÃ©commenter ce test pour pouvoir tester la mÃ©thode GetUtilisateurSuivant ----------------
 	//tests.push_back(groupe1->getGestionnaireUtilisateurs()->getUtilisateurSuivant(up1, 0) == up3);
 	// ------------------------------------------------------------------------------------------------
 	
