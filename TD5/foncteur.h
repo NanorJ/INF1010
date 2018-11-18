@@ -5,11 +5,13 @@
 *******************************************/
 
 #pragma once
-#include <map>
 #include "utilisateurPremium.h"
 #include "utilisateurRegulier.h"
+#include <map>
 #include <vector>
 #include<functional>
+
+
 class AjouterDepense {
 	public:
 		//constructeur
@@ -27,30 +29,24 @@ class AjouterUtilisateur {
 		//constructeur
 		AjouterUtilisateur(map<Utilisateur*, double>& conteneur) : conteneur_(conteneur) {};
 		map<Utilisateur*, double>& operator()(Utilisateur* utilisateur) {
-			auto end = conteneur_.end();
-			for (auto it = conteneur_.begin(); it != end; it++) {
-				if (it->first == utilisateur) {
-					cout << "L'utilisateur existe deja." << endl;
-					return conteneur_;//sortira directement de la classe sans avoir inserer la cle utilisateur
+			if (dynamic_cast<UtilisateurPremium*>(utilisateur) != nullptr) {
+				if (dynamic_cast<UtilisateurPremium*>(utilisateur)->getJoursRestants() > 0)
+					conteneur_.insert(make_pair(utilisateur, 0));
+				else
+					cout << "Erreur : L'utilisateur " << utilisateur->getNom() << " doit renouveler son abonnement premium" << endl;
+			}
+			else {
+				if (dynamic_cast<UtilisateurRegulier*>(utilisateur)->getPossedeGroupe() == false) {
+					conteneur_.insert(make_pair(utilisateur, 0));
+					dynamic_cast<UtilisateurRegulier*>(utilisateur)->setPossedeGroupe(true);
 				}
+				else
+					cout << "Erreur : L'utilisateur " << utilisateur->getNom() << " n'est pas un utilisateur premium et deja dans un groupe." << endl;
 			}
-			
-			if (dynamic_cast<UtilisateurRegulier*>(utilisateur)->getPossedeGroupe() == 0 && dynamic_cast<UtilisateurRegulier*>(utilisateur) != nullptr) {
-				conteneur_.insert(make_pair(utilisateur, 0));
-				dynamic_cast<UtilisateurRegulier*>(utilisateur)->setPossedeGroupe(true);
-			}
-			else
-				cout << "Erreur : L'utilisateur " << utilisateur->getNom() << " n'est pas un utilisateur premium et est deja dans un groupe." << endl;
-
-			if (dynamic_cast<UtilisateurPremium*>(utilisateur) != nullptr && dynamic_cast<UtilisateurPremium*>(utilisateur)->getJoursRestants() > 0)
-				conteneur_.insert(make_pair(utilisateur, 0));
-			else
-				cout << "Erreur : L'utilisateur " << utilisateur->getNom() << " doit renouveler son abonnement premium" << endl;
-
 			return conteneur_;
 		}
 	private:
-		map<Utilisateur*, double> conteneur_;
+		map<Utilisateur*, double>& conteneur_;
 };
 
 
@@ -59,9 +55,7 @@ class FoncteurIntervalle {
 		//constructeur
 		FoncteurIntervalle(double borneInf, double borneSup) : borneInf_(borneInf), borneSup_(borneSup) {};
 		bool operator()(pair<Utilisateur*, double> intervalle) { 
-			if (intervalle.second <= borneSup_ && intervalle.second >= borneInf_) // .second?
-				return true;
-			else return false;
+			return (intervalle.second <= borneSup_ && intervalle.second >= borneInf_);
 		}
 	private:
 		double borneInf_, borneSup_;
