@@ -34,13 +34,14 @@ public:
 	string getNom() const;
 	vector<Transfert*> getTransferts() const;
 
-	// TODO : À modifier :
+	// TODO : Ã€ modifier :
 	vector<double> getComptes() const;
 	double getTotalDepenses() const;
 	vector<Depense*> getDepenses() const;
-	vector<Utilisateur*> getUtilisateurs() const;
+	map<Utilisateur*, double>  getUtilisateurs() const; // changed from vector<Utilisateur*>
 
-	// Ajouté :
+
+	// AjoutÃ© :
 	GestionnaireUtilisateurs* getGestionnaireUtilisateurs();
 	GestionnaireDepenses* getGestionnaireDepenses();
 
@@ -61,14 +62,14 @@ private:
 	string nom_;
 	vector<Transfert*> transferts_;
 
-	// TODO : À modifier :
+	// TODO : Ã€ modifier :
 	vector<double> comptes_;
 
-	// Retiré :
+	// RetirÃ© :
 	// vector<Utilisateur*> utilisateurs_;
 	// vector<Depense*> depenses_;
 
-	// Ajouté :
+	// AjoutÃ© :
 	GestionnaireUtilisateurs* gestionnaireUtilisateurs_;
 	GestionnaireDepenses* gestionnaireDepenses_;
 };
