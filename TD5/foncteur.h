@@ -1,68 +1,75 @@
 /********************************************
 * Titre: Travail pratique #5 - foncteur.h
-* Date: 4 novembre 2018
 * Auteur: Ryan Hardie
+* Modifié par : Nanor Janjikian (1901777) et Stephanie Mansour (1935595)
+* Date: 19 novembre 2018
 *******************************************/
-
 #pragma once
-#include <map>
 #include "utilisateurPremium.h"
 #include "utilisateurRegulier.h"
+
+#include <map>
 #include <vector>
-#include<functional>
+#include <functional>
+
+
 class AjouterDepense {
 	public:
-		//constructeur
-		AjouterDepense(vector<Depense*>& conteneur) : conteneur_(conteneur) {};//check reference
+		//Constructeur
+		AjouterDepense(vector<Depense*>& conteneur) : conteneur_(conteneur) {};
+    
+        //Operateurs
 		vector<Depense*>& operator()(Depense* depense) {
 			conteneur_.push_back(depense);
 			return conteneur_;
 		}
+    
 	private:
-		vector<Depense*> conteneur_;
+		vector<Depense*>& conteneur_;
 };
 
 class AjouterUtilisateur {
 	public:
-		//constructeur
+		//Constructeur
 		AjouterUtilisateur(map<Utilisateur*, double>& conteneur) : conteneur_(conteneur) {};
+    
+        //Operateurs
 		map<Utilisateur*, double>& operator()(Utilisateur* utilisateur) {
-			auto end = conteneur_.end();
-			for (auto it = conteneur_.begin(); it != end; it++) {
-				if (it->first == utilisateur) {
-					cout << "L'utilisateur existe deja." << endl;
-					return conteneur_;//sortira directement de la classe sans avoir inserer la cle utilisateur
+			//on verifie si l'utilisateur existe, est premiuim ou regulier et est dans groupe
+			if (dynamic_cast<UtilisateurRegulier*>(utilisateur) != nullptr) {
+				if (dynamic_cast<UtilisateurRegulier*>(utilisateur)->getPossedeGroupe() == false) {
+					conteneur_.insert(pair<Utilisateur*,double>(utilisateur, 0.0));
+					dynamic_cast<UtilisateurRegulier*>(utilisateur)->setPossedeGroupe(true);
 				}
+				else
+					cout << "Erreur : L'utilisateur " << utilisateur->getNom() << " n'est pas un utilisateur premium et est deja dans un groupe." << endl;
 			}
-			
-			if (dynamic_cast<UtilisateurRegulier*>(utilisateur)->getPossedeGroupe() == 0 && dynamic_cast<UtilisateurRegulier*>(utilisateur) != nullptr) {
-				conteneur_.insert(make_pair(utilisateur, 0));
-				dynamic_cast<UtilisateurRegulier*>(utilisateur)->setPossedeGroupe(true);
+
+			else {
+				if (dynamic_cast<UtilisateurPremium*>(utilisateur)->getJoursRestants() > 0)
+					conteneur_.insert(pair<Utilisateur*, double>(utilisateur, 0.0));
+				else
+					cout << "Erreur : L'utilisateur " << utilisateur->getNom() << " doit renouveler son abonnement premium" << endl;
 			}
-			else
-				cout << "Erreur : L'utilisateur " << utilisateur->getNom() << " n'est pas un utilisateur premium et est deja dans un groupe." << endl;
-
-			if (dynamic_cast<UtilisateurPremium*>(utilisateur) != nullptr && dynamic_cast<UtilisateurPremium*>(utilisateur)->getJoursRestants() > 0)
-				conteneur_.insert(make_pair(utilisateur, 0));
-			else
-				cout << "Erreur : L'utilisateur " << utilisateur->getNom() << " doit renouveler son abonnement premium" << endl;
-
 			return conteneur_;
 		}
 	private:
-		map<Utilisateur*, double> conteneur_;
+		map<Utilisateur*, double>& conteneur_;
 };
 
 
 class FoncteurIntervalle {
 	public:
-		//constructeur
+		//Constructeur
 		FoncteurIntervalle(double borneInf, double borneSup) : borneInf_(borneInf), borneSup_(borneSup) {};
+    
+        //Methode qui verifie si le compte associe à la paire est compris entre les bornes
 		bool operator()(pair<Utilisateur*, double> intervalle) { 
-			if (intervalle.second <= borneSup_ && intervalle.second >= borneInf_) // .second?
+			//on utilise second pour avoir la valeure
+			if (intervalle.second <= borneSup_ && intervalle.second >= borneInf_)
 				return true;
-			else return false;
-		}
+			return false;
+        }
 	private:
-		double borneInf_, borneSup_;
+    double borneInf_, borneSup_;
 };

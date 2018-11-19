@@ -20,13 +20,13 @@ public:
 	Transfert();
 	Transfert(double montant, Utilisateur* expediteur, Utilisateur* receveur_);
 
-	// Méthodes d'accès
+	// Methodes d'acces
 	Utilisateur* getExpediteur() const;
 	Utilisateur* getReceveur() const;
 	double getMontant() const;
 	virtual double getFraisTransfert() const = 0;
 
-	// Méthodes d'affichage
+	// Methodes d'affichage
 	void setMontant(double montant);
 	void setExpediteur(Utilisateur* expediteur);
 	void setReceveur(Utilisateur* receveur);

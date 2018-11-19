@@ -1,11 +1,12 @@
 /********************************************
 * Titre: Travail pratique #5 - groupe.cpp
-* Date: 4 novembre 2018
 * Auteur: Ryan Hardie
+* Modifié par : Nanor Janjikian (1901777) et Stephanie Mansour (1935595)
+* Date: 19 novembre 2018
+* Description: Ce code contient les méthodes implémentées de groupe.h
 *******************************************/
 
 #include "groupe.h"
-#include <functional>
 #include <algorithm>
 using namespace std::placeholders;
 
@@ -22,13 +23,11 @@ Groupe::Groupe(const string& nom) : nom_(nom) {
 }
 
 Groupe::~Groupe() {
-	vector<Depense*> depenses = gestionnaireDepenses_->getConteneur();
-	for (int i = 0; i < depenses.size(); i++) {
-		delete depenses[i];
-	}
-	for (int i = 0; i < transferts_.size(); i++) {
-		delete transferts_[i];
-	}
+	for (auto depense : gestionnaireDepenses_->getConteneur()) 
+		delete depense;
+
+	for (auto transfert : transferts_)
+		delete transfert;
 
 	delete gestionnaireDepenses_;
 	delete gestionnaireUtilisateurs_;
@@ -39,28 +38,20 @@ string Groupe::getNom() const {
 	return nom_;
 }
 
-// TODO : √Ä modifier :
 vector<Depense*> Groupe::getDepenses() const {
 	return gestionnaireDepenses_->getConteneur();
 }
 
-// TODO : √Ä modifier :
-vector<Utilisateur*> Groupe::getUtilisateurs() const {
-	vector<Utilisateur*>tabUtilisateur;
-
-	for (pair<Utilisateur*, double>element : gestionnaireUtilisateurs_->getConteneur())//parcourt le conteneur
-		tabUtilisateur.push_back(element.first);
-
-	return tabUtilisateur;
+map<Utilisateur*, double>  Groupe::getUtilisateurs() const {
+	return gestionnaireUtilisateurs_->getConteneur();
 }
 
 vector<Transfert*> Groupe::getTransferts() const {
 	return transferts_;
 }
 
-// TODO : √Ä modifier :
 vector<double> Groupe::getComptes() const {
-	return comptes_; //why long 
+	return gestionnaireUtilisateurs_->getComptes();
 }
 
 double Groupe::getTotalDepenses() const {
@@ -75,97 +66,74 @@ GestionnaireDepenses * Groupe::getGestionnaireDepenses() {
 	return gestionnaireDepenses_;
 }
 
-// Methodes de modifications
+//Methodes de modifications
 void Groupe::setNom(const string& nom) {
 	nom_ = nom;
 }
 
 // Methodes d'ajout
 Groupe& Groupe::ajouterDepense(double montant, Utilisateur* payePar, const string& nom, const string& lieu) {
-	if (!gestionnaireUtilisateurs_->estExistant(payePar)) 
+    if (!gestionnaireUtilisateurs_->estExistant(payePar)){
 		return *this;
-
+    }
+    
 	Depense* depense = new Depense(nom, montant, lieu);
 	gestionnaireDepenses_->ajouter(depense);
-
+	
+    *payePar += depense;
 	gestionnaireUtilisateurs_->mettreAJourComptes(payePar, montant);
-	*payePar += depense;
 
 	return *this;
 }
 
 Groupe& Groupe::operator+=(Utilisateur* utilisateur) {
 	gestionnaireUtilisateurs_->ajouter(utilisateur);
-	comptes_.push_back(0);
 	return *this;
 }
 
-// TODO : √Ä modifier :
 void Groupe::equilibrerComptes() {
 
 	bool calcul = true;
 	int count = 0;
 	while (calcul) {
-		double max = 0;
-		double min = 0;
-		int indexMax = 0;
-		int indexMin = 0;
-
-		// On cherche le compte le plus eleve et le moins eleve
-		for (int i = 0; i < gestionnaireUtilisateurs_->getNombreElements(); i++) {
-			if (gestionnaireUtilisateurs_->getComptes()[i] > max) {
-				max = gestionnaireUtilisateurs_->getComptes()[i];
-				indexMax = i;
-			}
-			if (gestionnaireUtilisateurs_->getComptes()[i] < min) {
-				min = gestionnaireUtilisateurs_->getComptes()[i];
-				indexMin = i;
-			}
-		}
+		auto min = gestionnaireUtilisateurs_->getMin();
+		auto max = gestionnaireUtilisateurs_->getMax();
 
 		// On cherche lequel des deux a la dette la plus grande
-		if (-min <= max && min != 0 && max != 0) {
-			if (gestionnaireUtilisateurs_->getElementParIndex(indexMin).first->getMethodePaiement() == Interac) {
-				TransfertInterac* transfert = new TransfertInterac(-min, gestionnaireUtilisateurs_->getElementParIndex(indexMin).first, gestionnaireUtilisateurs_->getElementParIndex(indexMax).first);
+		if (-min.second <= max.second && min.second != 0 && max.second != 0) {
+			if (min.first->getMethodePaiement() == Interac) {
+				TransfertInterac* transfert = new TransfertInterac(-min.second, min.first, max.first);
 				transferts_.push_back(transfert);
 				transfert->effectuerTransfert();
 			}
 			else {
-				TransfertPaypal* transfert = new TransfertPaypal(-min, gestionnaireUtilisateurs_->getElementParIndex(indexMin).first, gestionnaireUtilisateurs_->getElementParIndex(indexMax).first);
+				TransfertPaypal* transfert = new TransfertPaypal(-min.second, min.first, max.first);
 				transferts_.push_back(transfert);
 				transfert->effectuerTransfert();
 			}
-			auto indexmax = gestionnaireUtilisateurs_->getElementParIndex(indexMax);
-			indexmax.second += min;
-			gestionnaireUtilisateurs_->setCompte(make_pair(indexmax.first, indexmax.second));
-
-			auto indexmin = gestionnaireUtilisateurs_->getElementParIndex(indexMin);
-			indexmin.second = 0;
-			gestionnaireUtilisateurs_->setCompte(make_pair(indexmin.first, 0));
+			max.second += min.second;
+			min.second = 0;
 		}
-		else if (-min > max  && min != 0 && max != 0) {
-			if (gestionnaireUtilisateurs_->getElementParIndex(indexMin).first->getMethodePaiement() == Interac) {
-				TransfertInterac* transfert = new TransfertInterac(max, gestionnaireUtilisateurs_->getElementParIndex(indexMin).first, gestionnaireUtilisateurs_->getElementParIndex(indexMax).first);
+		else if (-min.second > max.second  && min.second != 0 && max.second != 0) {
+			if (min.first->getMethodePaiement() == Interac) {
+				TransfertInterac* transfert = new TransfertInterac(max.second, min.first, max.first);
 				transferts_.push_back(transfert);
 				transfert->effectuerTransfert();
 			}
 			else {
-				TransfertPaypal* transfert = new TransfertPaypal(max, gestionnaireUtilisateurs_->getElementParIndex(indexMin).first, gestionnaireUtilisateurs_->getElementParIndex(indexMax).first);
+				TransfertPaypal* transfert = new TransfertPaypal(max.second, min.first, max.first);
 				transferts_.push_back(transfert);
 				transfert->effectuerTransfert();
 			}
-			auto indexmax = gestionnaireUtilisateurs_->getElementParIndex(indexMax);
-			indexmax.second = 0;
-			gestionnaireUtilisateurs_->setCompte(make_pair(indexmax.first, 0));
-
-			auto indexmin = gestionnaireUtilisateurs_->getElementParIndex(indexMin);
-			indexmin.second += max;
-			gestionnaireUtilisateurs_->setCompte(make_pair(indexmin.first, indexmin.second));
+			max.second = 0;
+			min.second += max.second;
 		}
 
+		gestionnaireUtilisateurs_->setCompte(max);
+		gestionnaireUtilisateurs_->setCompte(min);
 		// On incremente le nombre de comptes mis a 0
 		count++;
-		if (-min == max) {
+		if (-min.second == max.second) {
 			count++;
 		}
 		if (count >= gestionnaireUtilisateurs_->getNombreElements() - 1) {
@@ -176,26 +144,21 @@ void Groupe::equilibrerComptes() {
 }
 
 // Methode d'affichage
-// TODO : √Ä modifier :
 ostream & operator<<(ostream& os, const Groupe& groupe) {
 	os << "\nGroupe " << groupe.nom_ << ".\nCout total: " << groupe.getTotalDepenses() << "$ \nUtilisateurs:    \n\n";
 	
-	auto conteneur = groupe.gestionnaireUtilisateurs_->getConteneur();
-	for (auto it = conteneur.begin(); it != conteneur.end(); it++) {
-		os << "\t- " << *it->first;
-	}
-	os << endl;
+	for (auto utilisateur : groupe.gestionnaireUtilisateurs_->getConteneur())
+		os << "\t- " << *(utilisateur.first)<<endl;
 
 	if (groupe.transferts_.size() != 0) {
 		os << "Transferts :" << endl;
-		for (int i = 0; i < groupe.transferts_.size(); i++)
-			os << "\t" << *(groupe.transferts_[i]);
+		for (auto transfert : groupe.transferts_) 
+			os << "\t" << *(transfert);
 	}
 	else {
 		os << "Les comptes ne sont pas equilibres" << endl << endl;
-		for (int i = 0; i < groupe.comptes_.size(); i++) {
-			os << groupe.gestionnaireUtilisateurs_->getElementParIndex(i).first->getNom() << " : " << groupe.comptes_[i] << endl;
-		}
+		for (auto utilisateur : groupe.gestionnaireUtilisateurs_->getConteneur())
+			os << utilisateur.first->getNom() << " : " << utilisateur.second << endl;
 	}
 
 	os << endl;
