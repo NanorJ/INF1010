@@ -177,6 +177,7 @@ int main() {
 	// Test 17: ajout de depense avec utilisateur hors du groupe
 	tests.push_back(groupe1->getDepenses().size() == 1);
 
+<<<<<<< HEAD
 	// Test 18: modification des comptes
 	// if uncommented 18 = pass
 	// TODO : DÈcommenter ce test et commenter le test suivant (pour pouvoir tester avec les mÈthodes de la classe GestionnaireGenerique) ---------
@@ -187,6 +188,18 @@ int main() {
 	// TODO : Commenter ce test et dÈcommenter le test prÈcÈdent (pour pouvoir tester avec les mÈthodes de la classe GestionnaireGenerique) -------
 	/*tests.push_back(groupe1->getComptes()[0] == 150
 		&& groupe1->getComptes()[1] == -30);*/
+=======
+		// Test 18: modification des comptes
+	// if uncommented 18 = pass
+	// TODO : D√©commenter ce test et commenter le test suivant (pour pouvoir tester avec les m√©thodes de la classe GestionnaireGenerique) ---------
+	/*tests.push_back(groupe1->getGestionnaireUtilisateurs()->getConteneur()[up1] == 150
+		&& groupe1->getComptes()[1] == -30);*/
+	// --------------------------------------------------------------------------------------------------------------------------------------------
+	// if uncommented 18 = echec
+	// TODO : Commenter ce test et d√©commenter le test pr√©c√©dent (pour pouvoir tester avec les m√©thodes de la classe GestionnaireGenerique) -------
+	tests.push_back(groupe1->getComptes()[0] == 150
+		&& groupe1->getComptes()[1] == -30);
+>>>>>>> 2e0a03edff7db9ac333d5ef6a06baa6c92ea4351
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 
 	groupe1->ajouterDepense(360, up4, "d2")
@@ -200,6 +213,7 @@ int main() {
 
 	// Test 19: bonne valeurs pour les comptes
 	// if uncommented 19 = echec
+<<<<<<< HEAD
 	// TODO : Commenter ce test et dÈcommenter le test suivant (pour pouvoir tester avec les mÈthodes de la classe GestionnaireGenerique) ---------
 	//tests.push_back(groupe1->getComptes()[0] == 20
 	//	&& groupe1->getComptes()[1] == -100
@@ -212,6 +226,20 @@ int main() {
 	// if uncommented only 19 = pass
 	// TODO : DÈcommenter ce test et commenter le prÈcÈdent (pour pouvoir tester avec les mÈthodes de la classe GestionnaireGenerique) ------------
 	tests.push_back(groupe1->getGestionnaireUtilisateurs()->getConteneur()[up1] == 20
+=======
+	// TODO : Commenter ce test et d√©commenter le test suivant (pour pouvoir tester avec les m√©thodes de la classe GestionnaireGenerique) ---------
+	tests.push_back(groupe1->getComptes()[0] == 20
+		&& groupe1->getComptes()[1] == -100
+		&& groupe1->getComptes()[2] == 20
+		&& groupe1->getComptes()[3] == -280
+		&& groupe1->getComptes()[4] == 380
+		&& groupe1->getComptes()[5] == -40
+		&& groupe1->getTotalDepenses() == 2040);
+	// --------------------------------------------------------------------------------------------------------------------------------------------
+	// if uncommented only 19 = pass
+	// TODO : D√©commenter ce test et commenter le pr√©c√©dent (pour pouvoir tester avec les m√©thodes de la classe GestionnaireGenerique) ------------
+	/*tests.push_back(groupe1->getGestionnaireUtilisateurs()->getConteneur()[up1] == 20
+>>>>>>> 2e0a03edff7db9ac333d5ef6a06baa6c92ea4351
 		&& groupe1->getGestionnaireUtilisateurs()->getConteneur()[up3] == -100
 		&& groupe1->getGestionnaireUtilisateurs()->getConteneur()[up4] == 20
 		&& groupe1->getGestionnaireUtilisateurs()->getConteneur()[ur1] == -280
@@ -220,10 +248,16 @@ int main() {
 		&& groupe1->getTotalDepenses() == 2040);
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 
+<<<<<<< HEAD
 	// when uncommented 20&21 = pass
 	// Test 20 - 21 : verification de la mÈthode getUtilisateursEntre (obtenir les utilisateur contenant un compte compris entre -100 et 100 inclusivement)
 	// TODO : DÈcommenter lorsque votre TP sera terminÈ pour tester la mÈthode pour -----------------------------------------------------------------------
 	vector<pair<Utilisateur*, double>> vec = groupe1->getGestionnaireUtilisateurs()->getUtilisateursEntre(-100, 100);
+=======
+	// Test 20 - 21 : verification de la m√©thode getUtilisateursEntre (obtenir les utilisateur contenant un compte compris entre -100 et 100 inclusivement)
+	// TODO : D√©commenter lorsque votre TP sera termin√© pour tester la m√©thode pour -----------------------------------------------------------------------
+	/*vector<pair<Utilisateur*, double>> vec = groupe1->getGestionnaireUtilisateurs()->getUtilisateursEntre(-100, 100);
+>>>>>>> 2e0a03edff7db9ac333d5ef6a06baa6c92ea4351
 
 	tests.push_back(vec.size() == 4);
 
@@ -235,9 +269,15 @@ int main() {
 
 	// Test 22: verification des transferts
 	groupe1->equilibrerComptes();
+<<<<<<< HEAD
 	// when uncommented both give 22 = pass
 	// TODO : Commenter ce test et dÈcommenter le test suivant (pour pouvoir tester avec les mÈthodes de la classe GestionnaireGenerique) ----------------
 	/*tests.push_back(groupe1->getTransferts().size() == 4
+=======
+
+	// TODO : Commenter ce test et d√©commenter le test suivant (pour pouvoir tester avec les m√©thodes de la classe GestionnaireGenerique) ----------------
+	tests.push_back(groupe1->getTransferts().size() == 4
+>>>>>>> 2e0a03edff7db9ac333d5ef6a06baa6c92ea4351
 		&& groupe1->getComptes()[0] == 0
 		&& groupe1->getComptes()[1] == 0
 		&& groupe1->getComptes()[2] == 0
@@ -246,8 +286,13 @@ int main() {
 		&& groupe1->getComptes()[5] == 0);*/
 	// ----------------------------------------------------------------------------------------------------------------------------------------------------
 
+<<<<<<< HEAD
 	// TODO : DÈcommenter ce test et commenter le prÈcÈdent (pour pouvoir tester avec les mÈthodes de la classe GestionnaireGenerique) --------------------
 	tests.push_back(groupe1->getTransferts().size() == 4
+=======
+	// TODO : D√©commenter ce test et commenter le pr√©c√©dent (pour pouvoir tester avec les m√©thodes de la classe GestionnaireGenerique) --------------------
+	/*tests.push_back(groupe1->getTransferts().size() == 4
+>>>>>>> 2e0a03edff7db9ac333d5ef6a06baa6c92ea4351
 		&& groupe1->getGestionnaireUtilisateurs()->getConteneur()[up1] == 0
 		&& groupe1->getGestionnaireUtilisateurs()->getConteneur()[up3] == 0
 		&& groupe1->getGestionnaireUtilisateurs()->getConteneur()[up4] == 0
@@ -278,8 +323,13 @@ int main() {
 
 	// if uncommented 30 = pass
 	// TEST 30 : verification getUtilisateurSuivant
+<<<<<<< HEAD
 	// TODO : DÈcommenter ce test pour pouvoir tester la mÈthode GetUtilisateurSuivant ----------------
 	tests.push_back(groupe1->getGestionnaireUtilisateurs()->getUtilisateurSuivant(up1, 0) == up3);
+=======
+	// TODO : D√©commenter ce test pour pouvoir tester la m√©thode GetUtilisateurSuivant ----------------
+	//tests.push_back(groupe1->getGestionnaireUtilisateurs()->getUtilisateurSuivant(up1, 0) == up3);
+>>>>>>> 2e0a03edff7db9ac333d5ef6a06baa6c92ea4351
 	// ------------------------------------------------------------------------------------------------
 	
 

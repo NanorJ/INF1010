@@ -42,7 +42,17 @@ vector<Depense*> Groupe::getDepenses() const {
 	return gestionnaireDepenses_->getConteneur();
 }
 
+<<<<<<< HEAD
 map<Utilisateur*, double>  Groupe::getUtilisateurs() const {
+=======
+// TODO : À modifier 
+///changed from vector<Utilisateur*>
+map<Utilisateur*, double>  Groupe::getUtilisateurs() const {
+	/*vector<Utilisateur*>utilisateurs;
+	for (auto it : gestionnaireUtilisateurs_->getConteneur())//parcourt le conteneur
+		utilisateurs.push_back(it.first);
+	return utilisateurs;*/
+>>>>>>> 2e0a03edff7db9ac333d5ef6a06baa6c92ea4351
 	return gestionnaireUtilisateurs_->getConteneur();
 }
 
@@ -50,6 +60,10 @@ vector<Transfert*> Groupe::getTransferts() const {
 	return transferts_;
 }
 
+<<<<<<< HEAD
+=======
+// TODO : À modifier : ///error coming from here (18 and 19)
+>>>>>>> 2e0a03edff7db9ac333d5ef6a06baa6c92ea4351
 vector<double> Groupe::getComptes() const {
 	return gestionnaireUtilisateurs_->getComptes();
 }
@@ -96,6 +110,7 @@ void Groupe::equilibrerComptes() {
 	bool calcul = true;
 	int count = 0;
 	while (calcul) {
+<<<<<<< HEAD
 		auto min = gestionnaireUtilisateurs_->getMin();
 		auto max = gestionnaireUtilisateurs_->getMax();
 
@@ -103,10 +118,21 @@ void Groupe::equilibrerComptes() {
 		if (-min.second <= max.second && min.second != 0 && max.second != 0) {
 			if (min.first->getMethodePaiement() == Interac) {
 				TransfertInterac* transfert = new TransfertInterac(-min.second, min.first, max.first);
+=======
+		auto paireMin = gestionnaireUtilisateurs_->getMin();
+		auto paireMax = gestionnaireUtilisateurs_->getMax();
+
+
+		// On cherche lequel des deux a la dette la plus grande
+		if (-paireMin.second <= paireMax.second && paireMin.second != 0 && paireMax.second != 0) {
+			if (paireMin.first->getMethodePaiement() == Interac) {
+				TransfertInterac* transfert = new TransfertInterac(-paireMin.second, paireMin.first, paireMax.first);
+>>>>>>> 2e0a03edff7db9ac333d5ef6a06baa6c92ea4351
 				transferts_.push_back(transfert);
 				transfert->effectuerTransfert();
 			}
 			else {
+<<<<<<< HEAD
 				TransfertPaypal* transfert = new TransfertPaypal(-min.second, min.first, max.first);
 				transferts_.push_back(transfert);
 				transfert->effectuerTransfert();
@@ -117,10 +143,24 @@ void Groupe::equilibrerComptes() {
 		else if (-min.second > max.second  && min.second != 0 && max.second != 0) {
 			if (min.first->getMethodePaiement() == Interac) {
 				TransfertInterac* transfert = new TransfertInterac(max.second, min.first, max.first);
+=======
+				TransfertPaypal* transfert = new TransfertPaypal(-paireMin.second, paireMin.first, paireMax.first);
+				transferts_.push_back(transfert);
+				transfert->effectuerTransfert();
+			}
+
+			paireMax.second += paireMin.second;
+			paireMin.second = 0;
+		}
+		else if (-paireMin.second > paireMax.second  && paireMin.second != 0 && paireMax.second != 0) {
+			if (paireMin.first->getMethodePaiement() == Interac) {
+				TransfertInterac* transfert = new TransfertInterac(paireMax.second, paireMin.first, paireMax.first);
+>>>>>>> 2e0a03edff7db9ac333d5ef6a06baa6c92ea4351
 				transferts_.push_back(transfert);
 				transfert->effectuerTransfert();
 			}
 			else {
+<<<<<<< HEAD
 				TransfertPaypal* transfert = new TransfertPaypal(max.second, min.first, max.first);
 				transferts_.push_back(transfert);
 				transfert->effectuerTransfert();
@@ -134,6 +174,21 @@ void Groupe::equilibrerComptes() {
 		// On incremente le nombre de comptes mis a 0
 		count++;
 		if (-min.second == max.second) {
+=======
+				TransfertPaypal* transfert = new TransfertPaypal(paireMax.second, paireMin.first, paireMax.first);
+				transferts_.push_back(transfert);
+				transfert->effectuerTransfert();
+			}
+			paireMin.second += paireMax.second;
+			paireMax.second = 0;
+		}
+
+		gestionnaireUtilisateurs_->setCompte(paireMax);
+		gestionnaireUtilisateurs_->setCompte(paireMin);
+		// On incremente le nombre de comptes mis a 0
+		count++;
+		if (-paireMin.second == paireMax.second) {
+>>>>>>> 2e0a03edff7db9ac333d5ef6a06baa6c92ea4351
 			count++;
 		}
 		if (count >= gestionnaireUtilisateurs_->getNombreElements() - 1) {
@@ -143,12 +198,18 @@ void Groupe::equilibrerComptes() {
 
 }
 
+
 // Methode d'affichage
 ostream & operator<<(ostream& os, const Groupe& groupe) {
 	os << "\nGroupe " << groupe.nom_ << ".\nCout total: " << groupe.getTotalDepenses() << "$ \nUtilisateurs:    \n\n";
 	
 	for (auto utilisateur : groupe.gestionnaireUtilisateurs_->getConteneur())
+<<<<<<< HEAD
 		os << "\t- " << *(utilisateur.first)<<endl;
+=======
+		os << "\t- " << *(utilisateur.first);
+	os << endl;
+>>>>>>> 2e0a03edff7db9ac333d5ef6a06baa6c92ea4351
 
 	if (groupe.transferts_.size() != 0) {
 		os << "Transferts :" << endl;

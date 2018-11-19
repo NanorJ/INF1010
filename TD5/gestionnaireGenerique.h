@@ -6,7 +6,11 @@
 *******************************************/
 #pragma once
 
+<<<<<<< HEAD
 #include "foncteur.h"
+=======
+#include "foncteur.h"//ask
+>>>>>>> 2e0a03edff7db9ac333d5ef6a06baa6c92ea4351
 
 template <typename T, typename C, typename D, typename FoncteurAjouter>
 
@@ -18,6 +22,7 @@ class GestionnaireGenerique {
 			return conteneur_;
 		}
 	
+<<<<<<< HEAD
         unsigned long getNombreElements() const {
 			//ajouter pointeur dans le conteneur à l’aide d’un foncteur d’ajout FoncteurAjouter 
 			return conteneur_.size();
@@ -33,6 +38,14 @@ class GestionnaireGenerique {
 			//retourner l’élément du conteneur se situant à l’index i passé par paramètre
 			FoncteurAjouter foncteur(conteneur_);
 			foncteur(t);
+=======
+		int getNombreElements() const {
+			return conteneur_.size();
+		}
+	
+		D getElementParIndex(int i) const {
+			return *next(conteneur_.begin(), i);
+>>>>>>> 2e0a03edff7db9ac333d5ef6a06baa6c92ea4351
 		}
 
 	protected:
