@@ -32,25 +32,14 @@ public:
     
 	vector<Transfert*> getTransferts() const;
 
-<<<<<<< HEAD
-=======
-	// TODO : À modifier :
->>>>>>> 2e0a03edff7db9ac333d5ef6a06baa6c92ea4351
 	vector<double> getComptes() const;
     
 	double getTotalDepenses() const;
     
 	vector<Depense*> getDepenses() const;
-<<<<<<< HEAD
     
 	map<Utilisateur*, double>  getUtilisateurs() const; 
 
-=======
-	map<Utilisateur*, double>  getUtilisateurs() const; // changed from vector<Utilisateur*>
-
-
-	// Ajouté :
->>>>>>> 2e0a03edff7db9ac333d5ef6a06baa6c92ea4351
 	GestionnaireUtilisateurs* getGestionnaireUtilisateurs();
     
 	GestionnaireDepenses* getGestionnaireDepenses();
@@ -72,17 +61,6 @@ private:
 	string nom_;
 	vector<Transfert*> transferts_;
 
-<<<<<<< HEAD
-=======
-	// TODO : À modifier :
-	vector<double> comptes_;
-
-	// Retiré :
-	// vector<Utilisateur*> utilisateurs_;
-	// vector<Depense*> depenses_;
-
-	// Ajouté :
->>>>>>> 2e0a03edff7db9ac333d5ef6a06baa6c92ea4351
 	GestionnaireUtilisateurs* gestionnaireUtilisateurs_;
 	GestionnaireDepenses* gestionnaireDepenses_;
 };

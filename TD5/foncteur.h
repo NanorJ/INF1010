@@ -7,16 +7,10 @@
 #pragma once
 #include "utilisateurPremium.h"
 #include "utilisateurRegulier.h"
-<<<<<<< HEAD
 
 #include <map>
 #include <vector>
 #include <functional>
-=======
-#include <map>
-#include <vector>
-#include<functional>
->>>>>>> 2e0a03edff7db9ac333d5ef6a06baa6c92ea4351
 
 
 class AjouterDepense {
@@ -41,7 +35,6 @@ class AjouterUtilisateur {
     
         //Operateurs
 		map<Utilisateur*, double>& operator()(Utilisateur* utilisateur) {
-<<<<<<< HEAD
 			//on verifie si l'utilisateur existe, est premiuim ou regulier et est dans groupe
 			if (dynamic_cast<UtilisateurRegulier*>(utilisateur) != nullptr) {
 				if (dynamic_cast<UtilisateurRegulier*>(utilisateur)->getPossedeGroupe() == false) {
@@ -57,21 +50,6 @@ class AjouterUtilisateur {
 					conteneur_.insert(pair<Utilisateur*, double>(utilisateur, 0.0));
 				else
 					cout << "Erreur : L'utilisateur " << utilisateur->getNom() << " doit renouveler son abonnement premium" << endl;
-=======
-			if (dynamic_cast<UtilisateurPremium*>(utilisateur) != nullptr) {
-				if (dynamic_cast<UtilisateurPremium*>(utilisateur)->getJoursRestants() > 0)
-					conteneur_.insert(make_pair(utilisateur, 0));
-				else
-					cout << "Erreur : L'utilisateur " << utilisateur->getNom() << " doit renouveler son abonnement premium" << endl;
-			}
-			else {
-				if (dynamic_cast<UtilisateurRegulier*>(utilisateur)->getPossedeGroupe() == false) {
-					conteneur_.insert(make_pair(utilisateur, 0));
-					dynamic_cast<UtilisateurRegulier*>(utilisateur)->setPossedeGroupe(true);
-				}
-				else
-					cout << "Erreur : L'utilisateur " << utilisateur->getNom() << " n'est pas un utilisateur premium et deja dans un groupe." << endl;
->>>>>>> 2e0a03edff7db9ac333d5ef6a06baa6c92ea4351
 			}
 			return conteneur_;
 		}
@@ -87,16 +65,11 @@ class FoncteurIntervalle {
     
         //Methode qui verifie si le compte associe à la paire est compris entre les bornes
 		bool operator()(pair<Utilisateur*, double> intervalle) { 
-<<<<<<< HEAD
 			//on utilise second pour avoir la valeure
 			if (intervalle.second <= borneSup_ && intervalle.second >= borneInf_)
 				return true;
 			return false;
         }
-=======
-			return (intervalle.second <= borneSup_ && intervalle.second >= borneInf_);
-		}
->>>>>>> 2e0a03edff7db9ac333d5ef6a06baa6c92ea4351
 	private:
     double borneInf_, borneSup_;
 };
